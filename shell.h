@@ -103,7 +103,7 @@ typedef struct MyShellInfo
 /**
  *struct MyBuiltIn - contains a builtin string and related function
  *@type: the builtin command flag
- *@func: the function
+ *@function: the function
  */
 typedef struct MyBuiltIn {
     char *type;
@@ -111,42 +111,43 @@ typedef struct MyBuiltIn {
 } MyBuiltInTable;
 
 /* Function prototypes for shell.c and related functions. */
-
 int my_shell(MyShellInfo *, char **);
 int find_my_built_in(MyShellInfo *);
 void find_my_command(MyShellInfo *);
 void fork_my_command(MyShellInfo *);
 
 /* Function prototypes for parser.c and related functions. */
-
 int is_my_command(MyShellInfo *, char *);
 char *duplicate_characters(char *, int, int);
 char *find_my_path(MyShellInfo *, char *, char *);
 
 /* Function prototypes for loophsh.c and related functions. */
-
 int loop_my_shell(char **);
+
+/* Function prototypes for errors.c and related functions. */
 void my_puts(char *);
 int my_putchar(char);
 int put_fd(char, int fd);
 int puts_fd(char *str, int fd);
 
 /* Function prototypes for string.c and related functions. */
-
 int my_strlen(char *);
 int my_strcmp(char *, char *);
 char *my_starts_with(const char *, const char *);
 char *my_strcat(char *, char *);
+
+/* Function prototypes for string1.c and related functions. */
 char *my_strcpy(char *, char *);
 char *my_strdup(const char *);
 void my_puts(char *);
 int my_putchar(char);
+
+/* Function prototypes for exits.c and related functions. */
 char *my_strncpy(char *, char *, int);
 char *my_strncat(char *, char *, int);
 char *my_strchr(char *, char);
 
 /* Function prototypes for exits.c and related functions. */
-
 char *my_memset(char *, char, unsigned int);
 void my_ffree(char **);
 void *my_realloc(void *, unsigned int, unsigned int);
@@ -189,11 +190,15 @@ MyList *add_my_node_end(MyList **, const char *, int);
 size_t print_my_list_string(const MyList *);
 int delete_my_node_at_index(MyList **, unsigned int);
 void free_my_list(MyList **);
+
+/* Function prototypes for lists1.c and related functions. */
 size_t my_list_len(const MyList *);
 char **my_list_to_strings(MyList *);
 size_t print_my_list(const MyList *);
 MyList *my_node_starts_with(MyList *, char *, char);
 ssize_t get_my_node_index(MyList *, MyList *);
+
+/* Function prototypes for vars.c and related functions. */
 int is_my_chain(MyShellInfo *, char *, size_t *);
 void check_my_chain(MyShellInfo *, char *, size_t *, size_t, size_t);
 int replace_my_alias(MyShellInfo *);
