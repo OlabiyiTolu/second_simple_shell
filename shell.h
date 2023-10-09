@@ -152,15 +152,20 @@ char *my_memset(char *, char, unsigned int);
 void my_ffree(char **);
 void *my_realloc(void *, unsigned int, unsigned int);
 int my_bfree(void **);
+
 int my_interact(MyShellInfo *);
 int is_delimiter(char, char *);
 int my_is_alpha(int);
 int my_atoi(char *);
+
+/* Function prototypes for errors1.c and related functions. */
 int my_error_atoi(char *);
 void print_my_error(MyShellInfo *, char *);
 int print_decimal(int, int);
 char *convert_number(long int, int, int);
 void remove_comments(char *);
+
+/* Function prototypes for builtin.c and related functions. */
 int my_exit(MyShellInfo *);
 int my_cd(MyShellInfo *);
 int my_help(MyShellInfo *);
