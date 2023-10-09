@@ -164,8 +164,12 @@ void remove_comments(char *);
 int my_exit(MyShellInfo *);
 int my_cd(MyShellInfo *);
 int my_help(MyShellInfo *);
+
+/* Function prototypes for builtin.c and related functions. */
 int my_history(MyShellInfo *);
 int my_alias(MyShellInfo *);
+
+/* Function prototypes for getline.c and related functions. */
 ssize_t my_get_input(MyShellInfo *);
 int my_get_line(MyShellInfo *, char **, size_t *);
 void sigint_handler(int);
