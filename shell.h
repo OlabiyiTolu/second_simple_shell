@@ -147,6 +147,10 @@ char *my_strncpy(char *, char *, int);
 char *my_strncat(char *, char *, int);
 char *my_strchr(char *, char);
 
+/* Function prototypes for tokenizer.c and related functions. */
+char **my_strtow(char *, char *);
+char **my_strtow2(char *, char);
+
 /* Function prototypes for realloc.c and related functions. */
 char *my_memset(char *, char, unsigned int);
 void my_ffree(char **);
