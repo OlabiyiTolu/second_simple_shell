@@ -177,9 +177,13 @@ int my_env(MyShellInfo *);
 int my_set_env(MyShellInfo *);
 int my_unset_env(MyShellInfo *);
 int populate_my_env_list(MyShellInfo *);
+
+/* Function prototypes for getenv.c and related functions. */
 char **get_my_environ(MyShellInfo *);
 int my_unset_env(MyShellInfo *, char *);
 int my_set_env(MyShellInfo *, char *, char *);
+
+/* Function prototypes for history.c and related functions. */
 char *get_my_history_file(MyShellInfo *info);
 int write_my_history(MyShellInfo *info);
 int read_my_history(MyShellInfo *info);
