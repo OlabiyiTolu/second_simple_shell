@@ -153,6 +153,7 @@ void my_ffree(char **);
 void *my_realloc(void *, unsigned int, unsigned int);
 int my_bfree(void **);
 
+/* Function prototypes for atoi.c and related functions. */
 int my_interact(MyShellInfo *);
 int is_delimiter(char, char *);
 int my_is_alpha(int);
