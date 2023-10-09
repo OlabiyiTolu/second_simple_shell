@@ -147,10 +147,12 @@ char *my_strncpy(char *, char *, int);
 char *my_strncat(char *, char *, int);
 char *my_strchr(char *, char);
 
-/* Function prototypes for exits.c and related functions. */
+/* Function prototypes for realloc.c and related functions. */
 char *my_memset(char *, char, unsigned int);
 void my_ffree(char **);
 void *my_realloc(void *, unsigned int, unsigned int);
+
+/* Function prototypes for memory.c and related functions. */
 int my_bfree(void **);
 
 /* Function prototypes for atoi.c and related functions. */
