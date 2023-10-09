@@ -169,9 +169,13 @@ int my_alias(MyShellInfo *);
 ssize_t my_get_input(MyShellInfo *);
 int my_get_line(MyShellInfo *, char **, size_t *);
 void sigint_handler(int);
+
+/* Function prototypes for getinfo.c and related functions. */
 void clear_my_info(MyShellInfo *);
 void set_my_info(MyShellInfo *, char **);
 void free_my_info(MyShellInfo *, int);
+
+/* Function prototypes for environ.c and related functions. */
 char *_getenv(MyShellInfo *, const char *);
 int my_env(MyShellInfo *);
 int my_set_env(MyShellInfo *);
