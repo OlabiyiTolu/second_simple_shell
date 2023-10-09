@@ -185,6 +185,8 @@ int write_my_history(MyShellInfo *info);
 int read_my_history(MyShellInfo *info);
 int build_my_history_list(MyShellInfo *info, char *buf, int lineCount);
 int renumber_my_history(MyShellInfo *info);
+
+/* Function prototypes for lists.c and related functions. */
 MyList *add_my_node(MyList **, const char *, int);
 MyList *add_my_node_end(MyList **, const char *, int);
 size_t print_my_list_string(const MyList *);
