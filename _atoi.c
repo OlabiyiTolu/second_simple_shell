@@ -6,7 +6,7 @@
  *
  * Returns: 1 if in interactive mode, 0 otherwise.
  */
-int checkInteractiveMode(info_t *info)
+int my_interact(MyShellInfo *info)
 {
 	return (isatty(STDIN_FILENO) && info->readfd <= 2);
 }
@@ -18,7 +18,7 @@ int checkInteractiveMode(info_t *info)
  *
  * Returns: 1 if it's a delimiter, 0 if not.
  */
-int isDelimiter(char c, char *delim)
+int is_delimiter(char c, char *delim)
 {
 	while (*delim)
 		if (*delim++ == c)
@@ -32,7 +32,7 @@ int isDelimiter(char c, char *delim)
  *
  * Returns: 1 if it's alphabetic, 0 if not.
  */
-int isAlphabetic(int c)
+int my_is_alpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (1);
@@ -46,7 +46,7 @@ int isAlphabetic(int c)
  *
  * Returns: 0 if no numbers in the string, the converted number otherwise.
  */
-int stringToInteger(char *s)
+int my_atoi(char *s)
 {
 	int i, sign = 1, flag = 0, output;
 	unsigned int result = 0;
