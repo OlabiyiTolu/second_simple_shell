@@ -38,7 +38,7 @@
 extern char **my_environ;
 
 /**
- * struct liststr - singly linked list
+ * struct MyListString - singly linked list
  * @number: the number field
  * @str: a string
  * @next: points to the next node
@@ -101,8 +101,8 @@ typedef struct MyShellInfo
     }
 
 /**
- *struct MyBuiltIn - contains a builtin string and related function
- *@type: the builtin command flag
+ *struct MyBuiltIn - contains a MyBuiltIn string and related function
+ *@type: the MyBuiltIn command flag
  *@function: the function
  */
 typedef struct MyBuiltIn {
@@ -172,12 +172,12 @@ int print_decimal(int, int);
 char *convert_number(long int, int, int);
 void remove_comments(char *);
 
-/* Function prototypes for builtin.c and related functions. */
+/* Function prototypes for MyBuiltIn.c and related functions. */
 int my_exit(MyShellInfo *);
 int my_cd(MyShellInfo *);
 int my_help(MyShellInfo *);
 
-/* Function prototypes for builtin.c and related functions. */
+/* Function prototypes for MyBuiltIn.c and related functions. */
 int my_history(MyShellInfo *);
 int my_alias(MyShellInfo *);
 

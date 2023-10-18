@@ -16,18 +16,18 @@ int is_chain(info_t *info, char *buf, size_t *p)
     {
         buf[j] = 0;
         j++;
-        info->cmd_buf_type = CMD_OR;
+        info->cmd_buf_type = MY_CMD_OR;
     }
     else if (buf[j] == '&' && buf[j + 1] == '&')
     {
         buf[j] = 0;
         j++;
-        info->cmd_buf_type = CMD_AND;
+        info->cmd_buf_type = MY_CMD_AND;
     }
     else if (buf[j] == ';') /* Found the end of this command */
     {
         buf[j] = 0; /* Replace semicolon with null */
-        info->cmd_buf_type = CMD_CHAIN;
+        info->cmd_buf_type = MY_CMD_CHAIN;
     }
     else
         return (0);
@@ -49,7 +49,7 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 {
     size_t j = *p;
 
-    if (info->cmd_buf_type == CMD_AND)
+    if (info->cmd_buf_type == MY_CMD_AND)
     {
         if (info->status)
         {
@@ -57,7 +57,7 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
             j = len;
         }
     }
-    if (info->cmd_buf_type == CMD_OR)
+    if (info->cmd_buf_type == MY_CMD_OR)
     {
         if (!info->status)
         {
@@ -78,7 +78,7 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 int replace_alias(info_t *info)
 {
     int i;
-    list_t *node;
+    MyList *node;
     char *p;
 
     for (i = 0; i < 10; i++)
@@ -107,7 +107,7 @@ int replace_alias(info_t *info)
 int replace_vars(info_t *info)
 {
     int i = 0;
-    list_t *node;
+    MyList *node;
 
     for (i = 0; info->argv[i]; i++)
     {

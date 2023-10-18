@@ -10,7 +10,7 @@
  */
 list_t *add_node_at_start(list_t **head, const char *str, int num)
 {
-    list_t *new_node;
+    MyList *new_node;
 
     if (!head)
         return NULL;
@@ -43,7 +43,7 @@ list_t *add_node_at_start(list_t **head, const char *str, int num)
  */
 list_t *add_node_at_end(list_t **head, const char *str, int num)
 {
-    list_t *new_node, *node;
+    MyList *new_node, *node;
 
     if (!head)
         return NULL;
@@ -75,12 +75,12 @@ list_t *add_node_at_end(list_t **head, const char *str, int num)
 }
 
 /**
- * print_list_str - prints only the str element of a list_t linked list
+ * print_list_str - prints only the str element of a MyList linked list
  * @head: Pointer to the first node
  *
  * Return: Number of nodes in the list
  */
-size_t print_list_str(const list_t *head)
+size_t print_list_str(const MyList *head)
 {
     size_t i = 0;
 
@@ -103,7 +103,7 @@ size_t print_list_str(const list_t *head)
  */
 int delete_node_at_index(list_t **head, unsigned int index)
 {
-    list_t *node, *prev_node;
+    MyList *node, *prev_node;
     unsigned int i = 0;
 
     if (!head || !*head)
@@ -142,7 +142,7 @@ int delete_node_at_index(list_t **head, unsigned int index)
  */
 void free_list(list_t **head_ptr)
 {
-    list_t *node, *next_node, *head;
+    MyList *node, *next_node, *head;
 
     if (!head_ptr || !*head_ptr)
         return;

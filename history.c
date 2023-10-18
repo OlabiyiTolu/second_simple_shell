@@ -19,7 +19,7 @@ char *get_history_filename(info_t *info)
     buf[0] = 0;
     _strcpy(buf, dir);
     _strcat(buf, "/");
-    _strcat(buf, HIST_FILE);
+    _strcat(buf, MY_HIST_FILE);
     return buf;
 }
 
@@ -33,7 +33,7 @@ int write_history_to_file(info_t *info)
 {
     ssize_t fd;
     char *filename = get_history_filename(info);
-    list_t *node = NULL;
+    MyList *node = NULL;
 
     if (!filename)
         return -1;
@@ -95,7 +95,7 @@ int read_history_from_file(info_t *info)
         build_history_list(info, buf + last, linecount++);
     free(buf);
     info->histcount = linecount;
-    while (info->histcount-- >= HIST_MAX)
+    while (info->histcount-- >= MY_HIST_MAX)
         delete_node_at_index(&(info->history), 0);
     renumber_history(info);
     return info->histcount;
@@ -111,7 +111,7 @@ int read_history_from_file(info_t *info)
  */
 int build_history_list(info_t *info, char *buf, int linecount)
 {
-    list_t *node = NULL;
+    MyList *node = NULL;
 
     if (info->history)
         node = info->history;
@@ -130,7 +130,7 @@ int build_history_list(info_t *info, char *buf, int linecount)
  */
 int renumber_history(info_t *info)
 {
-    list_t *node = info->history;
+    MyList *node = info->history;
     int i = 0;
 
     while (node)

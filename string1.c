@@ -1,57 +1,57 @@
 #include "shell.h"
 
 /**
- * _string_copy - copies a string
- * @destination: the destination
- * @source: the source
+ * _strcpy - Copies a string from source to destination.
+ * @dst: The destination string.
+ * @src: The source string.
  *
- * Return: pointer to the destination
+ * Return: Pointer to the destination string.
  */
-char *_string_copy(char *destination, char *source)
+char *_strcpy(char *dst, char *src)
 {
     int i = 0;
 
-    if (destination == source || source == 0)
-        return destination;
-    while (source[i])
+    if (dst == src || src == 0)
+        return dst;
+    while (src[i])
     {
-        destination[i] = source[i];
+        dst[i] = src[i];
         i++;
     }
-    destination[i] = 0;
-    return destination;
+    dst[i] = '\0';
+    return dst;
 }
 
 /**
- * _string_duplicate - duplicates a string
- * @str: the string to duplicate
+ * _strdup - Duplicates a string.
+ * @str: The string to duplicate.
  *
- * Return: pointer to the duplicated string
+ * Return: Pointer to the duplicated string or NULL on failure.
  */
-char *_string_duplicate(const char *str)
+char *_strdup(const char *str)
 {
     int length = 0;
-    char *result;
+    char *ret;
 
     if (str == NULL)
         return NULL;
     while (*str++)
         length++;
-    result = malloc(sizeof(char) * (length + 1));
-    if (!result)
+    ret = malloc(sizeof(char) * (length + 1));
+    if (!ret)
         return NULL;
     for (length++; length--;)
-        result[length] = *--str;
-    return result;
+        ret[length] = *--str;
+    return ret;
 }
 
 /**
- * _string_puts - prints an input string
- * @str: the string to be printed
+ * _puts - Prints an input string to the standard output.
+ * @str: The string to be printed.
  *
- * Return: Nothing
+ * Return: Nothing.
  */
-void _string_puts(char *str)
+void _puts(char *str)
 {
     int i = 0;
 
@@ -65,23 +65,22 @@ void _string_puts(char *str)
 }
 
 /**
- * _string_putchar - writes the character c to stdout
- * @c: The character to print
+ * _putchar - Writes a character to the standard output.
+ * @c: The character to print.
  *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
  */
-int _string_putchar(char c)
+int _putchar(char c)
 {
     static int i;
     static char buf[WRITE_BUF_SIZE];
 
-    if (c == BUF_FLUSH || i >= WRITE_BUF_SIZE)
+    if (c == MY_BUF_FLUSH || i >= MY_WRITE_BUF_SIZE)
     {
         write(1, buf, i);
         i = 0;
     }
-    if (c != BUF_FLUSH)
+    if (c != MY_BUF_FLUSH)
         buf[i++] = c;
     return 1;
 }

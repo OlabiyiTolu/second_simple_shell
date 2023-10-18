@@ -6,7 +6,7 @@
  *
  * Return: Size of the list
  */
-size_t list_length(const list_t *head)
+size_t list_length(const MyList *head)
 {
     size_t count = 0;
 
@@ -19,14 +19,14 @@ size_t list_length(const list_t *head)
 }
 
 /**
- * list_to_strings - returns an array of strings from the list
+ * MyListo_strings - returns an array of strings from the list
  * @head: Pointer to the first node
  *
  * Return: Array of strings
  */
 char **list_to_strings(list_t *head)
 {
-    list_t *node = head;
+    MyList *node = head;
     size_t list_size = list_length(head);
     char **strings;
     size_t i, j;
@@ -58,12 +58,12 @@ char **list_to_strings(list_t *head)
 }
 
 /**
- * print_list - prints all elements of a list_t linked list
+ * print_list - prints all elements of a MyList linked list
  * @head: Pointer to the first node
  *
  * Return: Size of the list
  */
-size_t print_list(const list_t *head)
+size_t print_list(const MyList *head)
 {
     size_t count = 0;
 
@@ -108,7 +108,7 @@ list_t *find_node_starts_with(list_t *node, char *prefix, char c)
  *
  * Return: Index of the node or -1 if not found
  */
-ssize_t get_node_index(list_t *head, list_t *node)
+ssize_t get_node_index(list_t *head, MyList *node)
 {
     size_t index = 0;
 

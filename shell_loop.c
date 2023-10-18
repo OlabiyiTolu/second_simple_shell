@@ -10,9 +10,9 @@
 int shell_loop(info_t *info, char **av)
 {
     ssize_t r = 0;
-    int builtin_ret = 0;
+    int MyBuiltIn_ret = 0;
 
-    while (r != -1 && builtin_ret != -2)
+    while (r != -1 && MyBuiltIn_ret != -2)
     {
         clear_info(info);
         if (interactive(info))
@@ -22,7 +22,7 @@ int shell_loop(info_t *info, char **av)
         if (r != -1)
         {
             set_info(info, av);
-            builtin_ret = find_builtin_command(info);
+            MyBuiltIn_ret = find_builtin_command(info);
             if (builtin_ret == -1)
                 find_executable_command(info);
         }
@@ -44,18 +44,18 @@ int shell_loop(info_t *info, char **av)
 }
 
 /**
- * find_builtin_command - finds a builtin command
+ * find_builtin_command - finds a MyBuiltIn command
  * @info: the parameter & return info struct
  *
- * Return: -1 if builtin not found,
- *         0 if builtin executed successfully,
- *         1 if builtin found but not successful,
- *         -2 if builtin signals exit()
+ * Return: -1 if MyBuiltIn not found,
+ *         0 if MyBuiltIn executed successfully,
+ *         1 if MyBuiltIn found but not successful,
+ *         -2 if MyBuiltIn signals exit()
  */
 int find_builtin_command(info_t *info)
 {
     int i, built_in_ret = -1;
-    builtin_table builtintbl[] = {
+    MyBuiltInTable MyBuiltIntbl[] = {
         {"exit", _exit_shell},
         {"env", _print_environment},
         {"help", _show_help},
@@ -66,12 +66,12 @@ int find_builtin_command(info_t *info)
         {"alias", _manage_alias},
         {NULL, NULL}};
 
-    for (i = 0; builtintbl[i].command; i++)
+    for (i = 0; MyBuiltIntbl[i].command; i++)
     {
-        if (_strcmp(info->argv[0], builtintbl[i].command) == 0)
+        if (_strcmp(info->argv[0], MyBuiltIntbl[i].command) == 0)
         {
             info->line_count++;
-            built_in_ret = builtintbl[i].function(info);
+            built_in_ret = MyBuiltIntbl[i].function(info);
             break;
         }
     }
