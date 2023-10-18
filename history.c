@@ -4,7 +4,7 @@
  * get_my_history_file - gets the history file
  * @info: Structure containing potential arguments.
  *
- * Return: Allocated string containing history file.
+ * Return: Allocated string containing the history file.
  */
 char *get_my_history_file(MyShellInfo *info)
 {
@@ -38,10 +38,11 @@ int write_my_history(MyShellInfo *info)
         return -1;
 
     FILE *file = fopen(filename, "w");
-    free(filename);
-
     if (!file)
+    {
+        free(filename);
         return -1;
+    }
 
     MyList *node = info->history;
     while (node)
@@ -51,6 +52,7 @@ int write_my_history(MyShellInfo *info)
     }
 
     fclose(file);
+    free(filename);
     return 1;
 }
 
@@ -67,22 +69,24 @@ int read_my_history(MyShellInfo *info)
         return 0;
 
     FILE *file = fopen(filename, "r");
-    free(filename);
-
     if (!file)
+    {
+        free(filename);
         return 0;
+    }
 
     char line[MY_HIST_MAX];
     int linecount = 0;
 
     while (fgets(line, MY_HIST_MAX, file))
     {
-        line[strlen(line) - 1] = '\0'; // Remove newline
+        line[strlen(line) - 1] = '\0'; /* Remove newline */
         build_my_history_list(info, line, linecount);
         linecount++;
     }
 
     fclose(file);
+    free(filename);
     return linecount;
 }
 
@@ -96,7 +100,7 @@ int read_my_history(MyShellInfo *info)
  */
 int build_my_history_list(MyShellInfo *info, char *buf, int lineCount)
 {
-    add_node_end(&(info->history), buf, lineCount);
+    add_node_my_end(&(info->history), buf, lineCount);
     return 0;
 }
 
