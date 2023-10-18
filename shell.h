@@ -111,7 +111,7 @@ typedef struct MyBuiltIn {
 } MyBuiltInTable;
 
 /* Function prototypes for shell.c and related functions. */
-int my_shell(MyShellInfo *, char **);
+int my_shell_loop(MyShellInfo *, char **);
 int find_my_built_in(MyShellInfo *);
 void find_my_command(MyShellInfo *);
 void fork_my_command(MyShellInfo *);
