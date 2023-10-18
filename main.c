@@ -3,7 +3,7 @@
 int main(int argc, char **argv)
 {
     MyShellInfo info;
-    int fd = 2;  // Move the declaration here
+    int fd = 2;
     info.commandBuffer = NULL;
 
     asm (
