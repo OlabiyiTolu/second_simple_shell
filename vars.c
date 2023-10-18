@@ -8,7 +8,7 @@
  *
  * Return: 1 if chain delimiter, 0 otherwise
  */
-int my_is_chain(MyShellInfo *info, char *buf, size_t *p)
+int is_my_chain(MyShellInfo *info, char *buf, size_t *p)
 {
     size_t j = *p;
 
@@ -45,7 +45,7 @@ int my_is_chain(MyShellInfo *info, char *buf, size_t *p)
  *
  * Return: Void
  */
-void my_check_chain(MyShellInfo *info, char *buf, size_t *p, size_t i, size_t len)
+void check_my_chain(MyShellInfo *info, char *buf, size_t *p, size_t i, size_t len)
 {
     size_t j = *p;
 
