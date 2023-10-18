@@ -66,10 +66,10 @@ ssize_t my_get_input(MyShellInfo *info)
         j = i;       /* init new iterator to current buffer position */
         p = buffer + i; /* get pointer for return */
 
-        my_check_chain(info, buffer, &j, i, length);
+        check_my_chain(info, buffer, &j, i, length);
         while (j < length) /* iterate to semicolon or end */
         {
-            if (my_is_chain(info, buffer, &j))
+            if (is_my_chain(info, buffer, &j))
                 break;
             j++;
         }
@@ -139,7 +139,7 @@ int my_get_line(MyShellInfo *info, char **ptr, size_t *length)
     k = c ? 1 + (size_t)(c - buffer) : len;
     new_p = my_realloc(p, k, p ? k : k + 1);
     if (!new_p) /* MALLOC FAILURE! */
-        return p ? (my_ffree((void **)p), -1) : -1;
+        return p ? (free((void **)p), -1) : -1;
 
     if (p)
         my_strncat(new_p, buffer + i, k - i);
