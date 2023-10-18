@@ -181,7 +181,7 @@ int my_help(MyShellInfo *);
 int my_history(MyShellInfo *);
 int my_alias(MyShellInfo *);
 int unset_my_alias(MyShellInfo *, char *);
-int set_my_alias(MyShellInfo *, char *)
+int set_my_alias(MyShellInfo *, char *);
 int print_my_alias(MyList *);
 
 
