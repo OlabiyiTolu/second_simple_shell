@@ -139,8 +139,8 @@ char *my_strcat(char *, char *);
 /* Function prototypes for string1.c and related functions. */
 char *my_strcpy(char *, char *);
 char *my_strdup(const char *);
-void my_puts(char *);
-int my_putchar(char);
+void _my_puts(char *);
+int _my_putchar(char);
 
 /* Function prototypes for exits.c and related functions. */
 char *my_strncpy(char *dst, const char *src, int n);

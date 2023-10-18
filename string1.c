@@ -69,7 +69,7 @@ char *my_strdup(const char *str)
  *
  * Return: Nothing.
  */
-void my_puts(char *str)
+void _my_puts(char *str)
 {
     int i = 0;
 
@@ -91,7 +91,7 @@ void my_puts(char *str)
  *
  * Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
  */
-int my_putchar(char c)
+int _my_putchar(char c)
 {
     static int i;
     static char buf[MY_WRITE_BUF_SIZE];
