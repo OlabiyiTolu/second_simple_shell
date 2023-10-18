@@ -21,7 +21,7 @@ MyList *add_node_my_end(MyList **head, char *str, int lineCount) {
   }
 
   strcpy(node->str, str);
-  node->num = lineCount;
+  node->number = lineCount;
   node->next = NULL;
 
   if (*head == NULL) {

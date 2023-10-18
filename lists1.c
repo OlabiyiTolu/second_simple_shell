@@ -69,7 +69,7 @@ size_t print_my_list(const MyList *head)
 
     while (head)
     {
-        my_puts(convert_number(head->num, 10, 0));
+        my_puts(convert_number(head->number, 10, 0));
         my_puts(": ");
         my_puts(head->str ? head->str : "(nil)");
         my_puts("\n");
@@ -93,7 +93,7 @@ MyList *my_node_starts_with(MyList *head, char *prefix, char c)
 
     while (head)
     {
-        p = my_starts_withwith(head->str, prefix);
+        p = my_starts_with(head->str, prefix);
         if (p && ((c == -1) || (*p == c)))
             return head;
         head = head->next;

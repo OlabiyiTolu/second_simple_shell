@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "my_shell.h"
 
 int main(int argc, char **argv)
 {
@@ -18,7 +18,7 @@ int main(int argc, char **argv)
         if (fd == -1)
         {
             if (errno == EACCES) // Check if the error code is EACCES
-                my_exit(126); // Exit with status 126
+                my_exit(&info, 126); // Exit with status 126
             if (errno == ENOENT) // Check if the error code is ENOENT
             {
                 my_puts(argv[0]); // Print the program name
@@ -26,7 +26,7 @@ int main(int argc, char **argv)
                 my_puts(argv[1]); // Print the filename
                 my_putchar('\n'); // Print a newline character
                 my_putchar(MY_BUF_FLUSH); // Flush the output buffer
-                my_exit(127); // Exit with status 127
+                my_exit(&info, 127); // Exit with status 127
             }
             return EXIT_FAILURE; // Return a failure status
         }
