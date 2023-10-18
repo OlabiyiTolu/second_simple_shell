@@ -18,7 +18,7 @@ ssize_t my_input_buffer(MyShellInfo *info, char **buffer, size_t *length)
         /* my_bfree((void **)info->commandBuffer); */
         free(*buffer);
         *buffer = NULL;
-        signal(SIGINT, sigint_handler);
+        signal(SIGINT, my_sigint_handler);
 #if MY_USE_GETLINE
         read_bytes = my_getline(buffer, &length_p, stdin);
 #else
