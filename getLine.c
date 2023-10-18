@@ -18,7 +18,7 @@ ssize_t my_input_buffer(MyShellInfo *info, char **buffer, size_t *length)
         /* my_bfree((void **)info->commandBuffer); */
         free(*buffer);
         *buffer = NULL;
-        signal(SIGINT, my_sigint_handler);
+        signal(SIGINT, sigint_handler);
 #if MY_USE_GETLINE
         read_bytes = my_getline(buffer, &length_p, stdin);
 #else
@@ -157,12 +157,12 @@ int my_get_line(MyShellInfo *info, char **ptr, size_t *length)
 }
 
 /**
- * my_sigint_handler - blocks ctrl-C
+ * sigint_handler - blocks ctrl-C
  * @sig_num: the signal number
  *
  * Return: void
  */
-void my_sigint_handler(__attribute__((unused)) int sig_num)
+void sigint_handler(__attribute__((unused)) int sig_num)
 {
     my_puts("\n");
     my_puts("$ ");
