@@ -8,11 +8,11 @@
  */
 int my_bfree(void **ptr)
 {
-    if (ptr && *ptr) // Check if the pointer and its value are not NULL
+    if (ptr && *ptr)
     {
-        free(*ptr);  // Free the memory pointed to by the pointer
-        *ptr = NULL; // Set the pointer to NULL
-        return 1;     // Return 1 to indicate successful freeing
+        free(*ptr);
+        *ptr = NULL;
+        return 1;
     }
-    return 0; // Return 0 to indicate that no freeing was performed
+    return 0;
 }

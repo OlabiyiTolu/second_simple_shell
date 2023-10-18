@@ -1,8 +1,8 @@
-#include "my_shell.h"
+#include "shell.h"
 
 int main(int argc, char **argv)
 {
-    MyShellInfo info = MY_SHELL_INFO_INIT; // Initialize a MyShellInfo struct
+    MyShellInfo info = MY_SHELL_INFO_INIT; 
     int fd = 2;
 
     asm (
@@ -14,26 +14,26 @@ int main(int argc, char **argv)
 
     if (argc == 2)
     {
-        fd = open(argv[1], O_RDONLY); // Attempt to open a file for reading
+        fd = open(argv[1], O_RDONLY); 
         if (fd == -1)
         {
-            if (errno == EACCES) // Check if the error code is EACCES
-                my_exit(&info, 126); // Exit with status 126
-            if (errno == ENOENT) // Check if the error code is ENOENT
+            if (errno == EACCES) 
+                my_exit(&info, 126); 
+            if (errno == ENOENT) 
             {
-                my_puts(argv[0]); // Print the program name
+                my_puts(argv[0]);
                 my_puts(": 0: Can't open ");
-                my_puts(argv[1]); // Print the filename
-                my_putchar('\n'); // Print a newline character
-                my_putchar(MY_BUF_FLUSH); // Flush the output buffer
-                my_exit(&info, 127); // Exit with status 127
+                my_puts(argv[1]);
+                my_putchar('\n');
+                my_putchar(MY_BUF_FLUSH);
+                my_exit(&info, 127);
             }
-            return EXIT_FAILURE; // Return a failure status
+            return EXIT_FAILURE;
         }
-        info.readFd = fd; // Set the read file descriptor
+        info.readFd = fd;
     }
-    populate_my_env_list(&info); // Populate the environment list
-    read_my_history(&info); // Read command history
-    my_shell(&info, argv); // Call the main shell function
-    return EXIT_SUCCESS; // Return a success status
+    populate_my_env_list(&info);
+    read_my_history(&info);
+    my_shell(&info, argv);
+    return EXIT_SUCCESS;
 }
