@@ -2,7 +2,6 @@
 
 int main(int argc, char **argv)
 {
-  // Initialize the commandBuffer field
   MyShellInfo info = { .commandBuffer = malloc(sizeof(char *) * 10) };
 
   int fd = 2;
