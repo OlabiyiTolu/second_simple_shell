@@ -1,83 +1,97 @@
 #include "shell.h"
 
 /**
- * my_puts - Print an input string to standard output.
- * @str: The string to be printed.
- *
- * Return: Nothing.
+ * my_exit - exits the shell
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ *  Return: exits with a given exit status
+ *         (0) if info->arguments[0] != "exit"
  */
-void my_puts(char *str)
+int my_exit(MyShellInfo *info)
 {
-    int i = 0;
+    int exitcheck;
 
-    if (!str)
-        return;
-    while (str[i] != '\0')
+    if (info->arguments[1])  /* If there is an exit argument */
     {
-        my_putchar(str[i]);
-        i++;
+        exitcheck = my_error_atoi(info->arguments[1]);
+        if (exitcheck == -1)
+        {
+            info->status = 2;
+            print_my_error(info, "Illegal number: ");
+            my_puts(info->arguments[1]);
+            my_putchar('\n');
+            return 1;
+        }
+        info->errorNumber = my_error_atoi(info->arguments[1]);
+        return -2;
     }
+    info->errorNumber = -1;
+    return -2;
 }
 
 /**
- * my_putchar - Write a character to the standard error stream.
- * @c: The character to print.
- *
- * Return: On success, return 1. On error, return -1, and set errno appropriately.
+ * _my_cd - changes the current directory of the process
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ *  Return: Always 0
  */
-int my_putchar(char c)
+int my_cd(MyShellInfo *info)
 {
-    static int i;
-    static char buf[MY_WRITE_BUF_SIZE];
+    char *s, *dir, buffer[1024];
+    int chdir_ret;
 
-    if (c == MY_BUF_FLUSH || i >= MY_WRITE_BUF_SIZE)
+    s = getcwd(buffer, 1024);
+    if (!s)
+        my_puts("TODO: >>getcwd failure emsg here<<\n");
+    if (!info->arguments[1])
     {
-        write(2, buf, i);
-        i = 0;
+        dir = _getenv(info, "HOME=");
+        if (!dir)
+            chdir_ret = chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
+        else
+            chdir_ret = chdir(dir);
     }
-    if (c != MY_BUF_FLUSH)
-        buf[i++] = c;
-    return 1;
+    else if (my_strcmp(info->arguments[1], "-") == 0)
+    {
+        if (!_getenv(info, "OLDPWD="))
+        {
+            my_puts(s);
+            my_putchar('\n');
+            return 1;
+        }
+        my_puts(_getenv(info, "OLDPWD="));
+        my_putchar('\n');
+        chdir_ret = chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
+    }
+    else
+        chdir_ret = chdir(info->arguments[1]);
+    if (chdir_ret == -1)
+    {
+        print_my_error(info, "can't cd to ");
+        my_puts(info->arguments[1]);
+        my_putchar('\n');
+    }
+    else
+    {
+        my_set_env(info, "OLDPWD", _getenv(info, "PWD="));
+        my_set_env(info, "PWD", getcwd(buffer, 1024));
+    }
+    return 0;
 }
 
 /**
- * put_fd - Write a character to the given file descriptor.
- * @c: The character to print.
- * @fd: The file descriptor to write to.
- *
- * Return: On success, return 1. On error, return -1, and set errno appropriately.
+ * _my_help - changes the current directory of the process
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ *  Return: Always 0
  */
-int put_fd(char c, int fd)
+int my_help(MyShellInfo *info)
 {
-    static int i;
-    static char buf[MY_WRITE_BUF_SIZE];
+    char **arg_array;
 
-    if (c == MY_BUF_FLUSH || i >= MY_WRITE_BUF_SIZE)
-    {
-        write(fd, buf, i);
-        i = 0;
-    }
-    if (c != MY_BUF_FLUSH)
-        buf[i++] = c;
-    return 1;
-}
-
-/**
- * puts_fd - Print an input string to the given file descriptor.
- * @str: The string to be printed.
- * @fd: The file descriptor to write to.
- *
- * Return: The number of characters written.
- */
-int puts_fd(char *str, int fd)
-{
-    int i = 0;
-
-    if (!str)
-        return 0;
-    while (*str)
-    {
-        i += put_fd(*str++, fd);
-    }
-    return i;
+    arg_array = info->arguments;
+    my_puts("help call works. Function not yet implemented \n");
+    if (0)
+        my_puts(*arg_array); /* temp att_unused workaround */
+    return 0;
 }

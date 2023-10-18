@@ -124,7 +124,7 @@ void find_my_command(MyShellInfo *info)
 }
 
 /**
- * execute_my_command - Forks a new process to run the command.
+ * fork_my_command - Forks a new process to run the command.
  * @info: The parameter and return info struct.
  *
  * Returns: void.
@@ -135,7 +135,7 @@ void find_my_command(MyShellInfo *info)
  *
  * Returns: void.
  */
-void execute_my_command(MyShellInfo *info)
+void fork_my_command(MyShellInfo *info)
 {
     pid_t child_pid;
 
