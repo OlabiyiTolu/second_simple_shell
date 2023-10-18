@@ -1,4 +1,4 @@
-#include "my_shell.h"
+#include "shell.h"
 
 /**
  * my_strncpy - Copies a string with a specified length.

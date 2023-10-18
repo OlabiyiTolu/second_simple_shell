@@ -1,4 +1,4 @@
-#include "my_shell.h"
+#include "shell.h"
 
 /**
  * clear_my_info - Initializes MyShellInfo struct.
