@@ -1,67 +1,159 @@
-#include "shell.h"
+#include "my_shell.h"
 
 /**
- * my_interact - Check if the shell is in interactive mode.
- * @info: Pointer to the struct holding information.
+ * add_my_node - adds a node to the start of the list
+ * @head: address of pointer to head node
+ * @str: str field of node
+ * @num: node index used by history
  *
- * Returns: 1 if in interactive mode, 0 otherwise.
+ * Return: size of list
  */
-int my_interact(MyShellInfo *info)
+MyList *add_my_node(MyList **head, const char *str, int num)
 {
-    return (isatty(STDIN_FILENO) && info->readFd <= 2);
-}
+    MyList *new_head;
 
-/**
- * is_delimiter - Check if a character is a delimiter.
- * @c: The character to check.
- * @delim: The delimiter string.
- *
- * Returns: 1 if it's a delimiter, 0 if not.
- */
-int is_delimiter(char c, char *delim)
-{
-    while (*delim) {
-        if (*delim == c) {
-            return 1;
-        }
-        delim++;
-    }
-    return 0;
-}
-
-/**
- * my_is_alpha - Check if a character is alphabetic.
- * @c: The character to check.
- *
- * Returns: 1 if it's alphabetic, 0 if not.
- */
-int my_is_alpha(int c)
-{
-    return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) ? 1 : 0;
-}
-
-/**
- * my_atoi - Convert a string to an integer.
- * @s: The string to be converted.
- *
- * Returns: 0 if no numbers in the string, the converted number otherwise.
- */
-int my_atoi(char *s)
-{
-    int i, sign = 1, flag = 0, output = 0;
-
-    for (i = 0; s[i] != '\0' && flag != 2; i++) {
-        if (s[i] == '-')
-            sign *= -1;
-
-        if (s[i] >= '0' && s[i] <= '9') {
-            flag = 1;
-            output *= 10;
-            output += (s[i] - '0');
-        } else if (flag == 1) {
-            flag = 2;
+    if (!head)
+        return (NULL);
+    new_head = malloc(sizeof(MyList));
+    if (!new_head)
+        return (NULL);
+    my_memset((void *)new_head, 0, sizeof(MyList));
+    new_head->number = num;
+    if (str)
+    {
+        new_head->str = my_strdup(str);
+        if (!new_head->str)
+        {
+            free(new_head);
+            return (NULL);
         }
     }
+    new_head->next = *head;
+    *head = new_head;
+    return (new_head);
+}
 
-    return (sign == -1) ? -output : output;
+/**
+ * add_my_node_end - adds a node to the end of the list
+ * @head: address of pointer to head node
+ * @str: str field of node
+ * @num: node index used by history
+ *
+ * Return: size of list
+ */
+MyList *add_my_node_end(MyList **head, const char *str, int num)
+{
+    MyList *new_node, *node;
+
+    if (!head)
+        return (NULL);
+
+    node = *head;
+    new_node = malloc(sizeof(MyList));
+    if (!new_node)
+        return (NULL);
+    my_memset((void *)new_node, 0, sizeof(MyList));
+    new_node->number = num;
+    if (str)
+    {
+        new_node->str = my_strdup(str);
+        if (!new_node->str)
+        {
+            free(new_node);
+            return (NULL);
+        }
+    }
+    if (node)
+    {
+        while (node->next)
+            node = node->next;
+        node->next = new_node;
+    }
+    else
+        *head = new_node;
+    return (new_node);
+}
+
+/**
+ * print_my_list_string - prints only the str element of a MyList linked list
+ * @h: pointer to the first node
+ *
+ * Return: size of list
+ */
+size_t print_my_list_string(const MyList *h)
+{
+    size_t i = 0;
+
+    while (h)
+    {
+        my_puts(h->str ? h->str : "(nil)");
+        my_puts("\n");
+        h = h->next;
+        i++;
+    }
+    return (i);
+}
+
+/**
+ * delete_my_node_at_index - deletes a node at a given index
+ * @head: address of pointer to the first node
+ * @index: index of node to delete
+ *
+ * Return: 1 on success, 0 on failure
+ */
+int delete_my_node_at_index(MyList **head, unsigned int index)
+{
+    MyList *node, *prev_node;
+    unsigned int i = 0;
+
+    if (!head || !*head)
+        return (0);
+
+    if (!index)
+    {
+        node = *head;
+        *head = (*head)->next;
+        free(node->str);
+        free(node);
+        return (1);
+    }
+    node = *head;
+    while (node)
+    {
+        if (i == index)
+        {
+            prev_node->next = node->next;
+            free(node->str);
+            free(node);
+            return (1);
+        }
+        i++;
+        prev_node = node;
+        node = node->next;
+    }
+    return (0);
+}
+
+/**
+ * free_my_list - frees all nodes of a list
+ * @head_ptr: address of pointer to the head node
+ *
+ * Return: void
+ */
+void free_my_list(MyList **head_ptr)
+{
+    MyList *node, *next_node, *head;
+
+    if (!head_ptr || !*head_ptr)
+        return;
+    head = *head_ptr;
+    node = head;
+    while (node)
+    {
+        next_node = node->next;
+        free(node->str);
+        free(node);
+        node = next_node;
+    }
+    *head_ptr = NULL;
 }
