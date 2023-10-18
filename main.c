@@ -5,7 +5,8 @@ int main(int argc, char **argv)
     MyShellInfo info;
     info.commandBuffer = NULL;
 
-    int fd = 2;
+    int fd;
+    fd = 2;
 
     asm (
         "mov %1, %0\n\t"
