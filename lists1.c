@@ -49,7 +49,7 @@ char **my_list_to_strings(MyList *head)
             return NULL;
         }
 
-        _strcpy(str, node->str);
+        my_strcpy(str, node->str);
         strings[i] = str;
     }
 
@@ -69,10 +69,10 @@ size_t print_my_list(const MyList *head)
 
     while (head)
     {
-        _puts(convert_number(head->num, 10, 0));
-        _puts(": ");
-        _puts(head->str ? head->str : "(nil)");
-        _puts("\n");
+        my_puts(convert_number(head->num, 10, 0));
+        my_puts(": ");
+        my_puts(head->str ? head->str : "(nil)");
+        my_puts("\n");
         head = head->next;
         count++;
     }
