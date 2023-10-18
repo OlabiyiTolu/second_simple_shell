@@ -58,7 +58,7 @@ int write_history(MyShellInfo *info)
  *
  * Return: histcount on success, 0 otherwise
  */
-int read_history(MyShellInfo *info)
+int read_my_history(MyShellInfo *info)
 {
     int i, last = 0, lineCount = 0;
     ssize_t fd, rdlen, fsize = 0;
