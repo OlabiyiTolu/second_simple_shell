@@ -7,7 +7,7 @@
  *
  * Returns: 0 on success, 1 on error, or an error code.
  */
-int shell_loop(info_t *info, char **av)
+int shell_loop(MyShellInfo *info, char **av)
 {
     ssize_t r = 0;
     int built_in_ret = 0;
@@ -16,8 +16,8 @@ int shell_loop(info_t *info, char **av)
     {
         clear_info(info);
         if (interactive(info))
-            _puts("$ ");
-        _mputchar(BUF_FLUSH);
+            my_puts("$ ");
+        my_putchar(BUF_FLUSH);
         r = read_input(info);
         if (r != -1)
         {
@@ -27,7 +27,7 @@ int shell_loop(info_t *info, char **av)
                 find_executable_command(info);
         }
         else if (interactive(info))
-            _putchar('\n');
+            my_putchar('\n');
         free_info(info, 0);
     }
     write_history(info);
@@ -50,7 +50,7 @@ int shell_loop(info_t *info, char **av)
  * Returns: -1 if built-in not found, 0 if built-in executed successfully,
  * 1 if built-in found but not successful, -2 if built-in signals exit().
  */
-int find_builtin_command(info_t *info)
+int find_builtin_command(MyShellInfo *info)
 {
     int i, built_in_ret = -1;
     MyBuiltInTable built_in_table[] = {
@@ -66,7 +66,7 @@ int find_builtin_command(info_t *info)
 
     for (i = 0; built_in_table[i].command; i++)
     {
-        if (_strcmp(info->argv[0], built_in_table[i].command) == 0)
+        if (my_strcmp(info->argv[0], built_in_table[i].command) == 0)
         {
             info->line_count++;
             built_in_ret = built_in_table[i].function(info);
@@ -82,7 +82,7 @@ int find_builtin_command(info_t *info)
  *
  * Returns: void.
  */
-void find_executable_command(info_t *info)
+void find_executable_command(MyShellInfo *info)
 {
     char *path = NULL;
     int i, k;
@@ -95,7 +95,7 @@ void find_executable_command(info_t *info)
     }
     for (i = 0, k = 0; info->arg[i]; i++)
     {
-        if (!_is_delimiter(info->arg[i], " \t\n"))
+        if (!is_delimiter(info->arg[i], " \t\n"))
         {
             k++;
         }
@@ -129,7 +129,7 @@ void find_executable_command(info_t *info)
  *
  * Returns: void.
  */
-void execute_command(info_t *info)
+void execute_command(MyShellInfo *info)
 {
     pid_t child_pid;
 
