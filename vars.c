@@ -142,7 +142,7 @@ int my_replace_vars(MyShellInfo *info)
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int my_replace_string(char **old, char *new)
+int replace_my_string(char **old, char *new)
 {
     free(*old);
     *old = new;
