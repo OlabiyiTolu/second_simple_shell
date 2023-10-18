@@ -22,7 +22,7 @@ ssize_t my_input_buffer(MyShellInfo *info, char **buffer, size_t *length)
 #if MY_USE_GETLINE
         read_bytes = my_getline(buffer, &length_p, stdin);
 #else
-        read_bytes = my_getline_alternative(info, buffer, &length_p);
+        read_bytes = my_get_line(info, buffer, &length_p);
 #endif
         if (read_bytes > 0)
         {
@@ -110,14 +110,14 @@ ssize_t my_read_buffer(MyShellInfo *info, char *buffer, size_t *i)
 }
 
 /**
- * my_getline_alternative - gets the next line of input from STDIN
+ * my_get_line - gets the next line of input from STDIN
  * @info: MyShellInfo struct
  * @ptr: address of pointer to buffer, preallocated or NULL
  * @length: size of preallocated ptr buffer if not NULL
  *
  * Return: size
  */
-int my_getline_alternative(MyShellInfo *info, char **ptr, size_t *length)
+int my_get_line(MyShellInfo *info, char **ptr, size_t *length)
 {
     static char buffer[MY_READ_BUF_SIZE];
     static size_t i, len;
