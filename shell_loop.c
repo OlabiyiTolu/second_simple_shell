@@ -1,13 +1,13 @@
-#include "shell.h"
+#include "my_shell.h"
 
 /**
- * shell_loop - Main shell loop.
+ * my_shell_loop - Main shell loop.
  * @info: The parameter and return info struct.
  * @av: The argument vector from main().
  *
  * Returns: 0 on success, 1 on error, or an error code.
  */
-int shell_loop(MyShellInfo *info, char **av)
+int my_shell_loop(MyShellInfo *info, char **av)
 {
     ssize_t r = 0;
     int built_in_ret = 0;
@@ -31,7 +31,7 @@ int shell_loop(MyShellInfo *info, char **av)
         free_my_info(info, 0);
     }
     write_my_history(info);
-    free_info(info, 1);
+    free_my_info(info, 1);
     if (!interactive(info) && info->status)
         exit(info->status);
     if (built_in_ret == -2)
@@ -44,13 +44,13 @@ int shell_loop(MyShellInfo *info, char **av)
 }
 
 /**
- * find_builtin_command - Find a built-in command.
+ * find_my_built_in - Find a built-in command.
  * @info: The parameter and return info struct.
  *
  * Returns: -1 if built-in not found, 0 if built-in executed successfully,
  * 1 if built-in found but not successful, -2 if built-in signals exit().
  */
-int find_builtin_command(MyShellInfo *info)
+int find_my_built_in(MyShellInfo *info)
 {
     int i, built_in_ret = -1;
     MyBuiltInTable built_in_table[] = {
@@ -59,16 +59,16 @@ int find_builtin_command(MyShellInfo *info)
         {"help", my_help},
         {"history", my_history},
         {"setenv", my_mset_env},
-        {"unsetenv", m_munset_env},
+        {"unsetenv", my_munset_env},
         {"cd", my_cd},
         {"alias", my_alias},
         {NULL, NULL}};
 
-    for (i = 0; built_in_table[i].command; i++)
+    for (i = 0; built_in_table[i].type; i++)
     {
-        if (my_strcmp(info->argv[0], built_in_table[i].command) == 0)
+        if (my_strcmp(info->arguments[0], built_in_table[i].type) == 0)
         {
-            info->line_count++;
+            info->lineCount++;
             built_in_ret = built_in_table[i].function(info);
             break;
         }
@@ -77,25 +77,25 @@ int find_builtin_command(MyShellInfo *info)
 }
 
 /**
- * find_executable_command - Find an executable command in PATH.
+ * find_my_command - Find an executable command in PATH.
  * @info: The parameter and return info struct.
  *
  * Returns: void.
  */
-void find_executable_command(MyShellInfo *info)
+void find_my_command(MyShellInfo *info)
 {
     char *path = NULL;
     int i, k;
 
-    info->path = info->argv[0];
-    if (info->line_count_flag == 1)
+    info->path = info->arguments[0];
+    if (info->lineCountFlag == 1)
     {
-        info->line_count++;
-        info->line_count_flag = 0;
+        info->lineCount++;
+        info->lineCountFlag = 0;
     }
-    for (i = 0, k = 0; info->arg[i]; i++)
+    for (i = 0, k = 0; info->argument[i]; i++)
     {
-        if (!is_delimiter(info->arg[i], " \t\n"))
+        if (!is_delimiter(info->argument[i], " \t\n"))
         {
             k++;
         }
@@ -103,33 +103,33 @@ void find_executable_command(MyShellInfo *info)
     if (!k)
         return;
 
-    path = find_command_in_path(info, _get_environment_variable(info, "PATH="), info->argv[0]);
+    path = find_my_command_in_path(info, _getenv(info, "PATH="), info->arguments[0]);
     if (path)
     {
         info->path = path;
-        execute_command(info);
+        execute_my_command(info);
     }
     else
     {
-        if ((interactive(info) || _get_environment_variable(info, "PATH=") || info->argv[0][0] == '/') && is_executable_command(info, info->argv[0]))
+        if ((interactive(info) || _getenv(info, "PATH=") || info->arguments[0][0] == '/') && is_executable_command(info, info->arguments[0]))
         {
-            execute_command(info);
+            execute_my_command(info);
         }
-        else if (*(info->arg) != '\n')
+        else if (*(info->argument) != '\n')
         {
             info->status = 127;
-            print_error_message(info, "not found\n");
+            print_my_error_message(info, "not found\n");
         }
     }
 }
 
 /**
- * execute_command - Forks a new process to run the command.
+ * execute_my_command - Forks a new process to run the command.
  * @info: The parameter and return info struct.
  *
  * Returns: void.
  */
-void execute_command(MyShellInfo *info)
+void execute_my_command(MyShellInfo *info)
 {
     pid_t child_pid;
 
@@ -143,7 +143,7 @@ void execute_command(MyShellInfo *info)
     {
         if (execute_process(info) == -1)
         {
-            free_info(info, 1);
+            free_my_info(info, 1);
             if (errno == EACCES)
                 exit(126);
             exit(1);
@@ -156,7 +156,7 @@ void execute_command(MyShellInfo *info)
         {
             info->status = WEXITSTATUS(info->status);
             if (info->status == 126)
-                print_error_message(info, "Permission denied\n");
+                print_my_error_message(info, "Permission denied\n");
         }
     }
 }
