@@ -75,7 +75,7 @@ void check_my_chain(MyShellInfo *info, char *buf, size_t *p, size_t i, size_t le
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int my_replace_alias(MyShellInfo *info)
+int replace_my_alias(MyShellInfo *info)
 {
     int i;
     MyList *node;
@@ -104,7 +104,7 @@ int my_replace_alias(MyShellInfo *info)
  *
  * Return: 1 if replaced, 0 otherwise
  */
-int my_replace_vars(MyShellInfo *info)
+int replace_my_vars(MyShellInfo *info)
 {
     int i = 0;
     MyList *node;
