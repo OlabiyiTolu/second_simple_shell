@@ -2,9 +2,8 @@
 
 int main(int argc, char **argv)
 {
-  MyShellInfo info = MY_SHELL_INFO_INIT;
   // Initialize the commandBuffer field
-  info.commandBuffer = malloc(sizeof(char *) * 10);
+  MyShellInfo info = { .commandBuffer = malloc(sizeof(char *) * 10) };
 
   int fd = 2;
 
@@ -21,7 +20,7 @@ int main(int argc, char **argv)
     if (fd == -1)
     {
       if (errno == EACCES)
-        my_exit((int)&info);
+        my_exit(&info);
       if (errno == ENOENT)
       {
         my_puts(argv[0]);
@@ -29,7 +28,7 @@ int main(int argc, char **argv)
         my_puts(argv[1]);
         my_putchar('\n');
         my_putchar(MY_BUF_FLUSH);
-        my_exit((int)&info);
+        my_exit(&info);
       }
       return EXIT_FAILURE;
     }
