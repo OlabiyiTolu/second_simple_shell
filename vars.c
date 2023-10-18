@@ -86,7 +86,7 @@ int my_replace_alias(MyShellInfo *info)
         node = my_node_starts_with(info->alias, info->arguments[0], '=');
         if (!node)
             return 0;
-        my_free(info->arguments[0]);
+        my_bfree(info->arguments[0]);
         p = my_strchr(node->str, '=');
         if (!p)
             return 0;
