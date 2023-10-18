@@ -15,7 +15,7 @@ int my_shell_loop(MyShellInfo *info, char **av)
     while (r != -1 && built_in_ret != -2)
     {
         clear_my_info(info);
-        if (interactive(info))
+        if (my_interact(info))
             my_puts("$ ");
         my_putchar(MY_BUF_FLUSH);
         r = my_get_input(info);
@@ -26,13 +26,13 @@ int my_shell_loop(MyShellInfo *info, char **av)
             if (built_in_ret == -1)
                 find_my_command(info);
         }
-        else if (interactive(info))
+        else if (my_interact(info))
             my_putchar('\n');
         free_my_info(info, 0);
     }
     write_my_history(info);
     free_my_info(info, 1);
-    if (!interactive(info) && info->status)
+    if (!my_interact(info) && info->status)
         exit(info->status);
     if (built_in_ret == -2)
     {
@@ -141,7 +141,7 @@ void execute_my_command(MyShellInfo *info)
     }
     if (child_pid == 0)
     {
-        if (execute_process(info) == -1)
+        if (execve(info) == -1)
         {
             free_my_info(info, 1);
             if (errno == EACCES)
@@ -156,7 +156,7 @@ void execute_my_command(MyShellInfo *info)
         {
             info->status = WEXITSTATUS(info->status);
             if (info->status == 126)
-                print_my_error_message(info, "Permission denied\n");
+                print_my_error(info, "Permission denied\n");
         }
     }
 }

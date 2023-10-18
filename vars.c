@@ -116,21 +116,21 @@ int my_replace_vars(MyShellInfo *info)
 
         if (!my_strcmp(info->arguments[i], "$?"))
         {
-            my_replace_string(&(info->arguments[i]), my_strdup(convert_number(info->status, 10, 0)));
+            replace_my_string(&(info->arguments[i]), my_strdup(convert_number(info->status, 10, 0)));
             continue;
         }
         if (!my_strcmp(info->arguments[i], "$$"))
         {
-            my_replace_string(&(info->arguments[i]), my_strdup(convert_number(getpid(), 10, 0)));
+            replace_my_string(&(info->arguments[i]), my_strdup(convert_number(getpid(), 10, 0)));
             continue;
         }
         node = my_node_starts_with(info->environment, &info->arguments[i][1], '=');
         if (node)
         {
-            my_replace_string(&(info->arguments[i]), my_strdup(my_strchr(node->str, '=') + 1));
+            replace_my_string(&(info->arguments[i]), my_strdup(my_strchr(node->str, '=') + 1));
             continue;
         }
-        my_replace_string(&info->arguments[i], my_strdup(""));
+        replace_my_string(&info->arguments[i], my_strdup(""));
     }
     return 0;
 }
