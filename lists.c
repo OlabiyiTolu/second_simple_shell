@@ -1,159 +1,67 @@
-#include "shell.h"
+#include "my_shell.h"
 
 /**
- * add_my_node - adds a node to the start of the list
- * @head: Address of the pointer to the head node
- * @str: String field of the node
- * @num: Node index used by history
+ * my_interact - Check if the shell is in interactive mode.
+ * @info: Pointer to the struct holding information.
  *
- * Return: Address of the newly added node
+ * Returns: 1 if in interactive mode, 0 otherwise.
  */
-MyList *add_my_node(MyList **head, const char *str, int num)
+int my_interact(MyShellInfo *info)
 {
-    MyList *new_node;
-
-    if (!head)
-        return NULL;
-    new_node = malloc(sizeof(MyList));
-    if (!new_node)
-        return NULL;
-    _memset((void *)new_node, 0, sizeof(MyList));
-    new_node->num = num;
-    if (str)
-    {
-        new_node->str = _strdup(str);
-        if (!new_node->str)
-        {
-            free(new_node);
-            return NULL;
-        }
-    }
-    new_node->next = *head;
-    *head = new_node;
-    return new_node;
+    return (isatty(STDIN_FILENO) && info->readFd <= 2);
 }
 
 /**
- * add_my_node_end - adds a node to the end of the list
- * @head: Address of the pointer to the head node
- * @str: String field of the node
- * @num: Node index used by history
+ * is_delimiter - Check if a character is a delimiter.
+ * @c: The character to check.
+ * @delim: The delimiter string.
  *
- * Return: Address of the newly added node
+ * Returns: 1 if it's a delimiter, 0 if not.
  */
-MyList *add_my_node_end(MyList **head, const char *str, int num)
+int is_delimiter(char c, char *delim)
 {
-    MyList *new_node, *node;
-
-    if (!head)
-        return NULL;
-
-    node = *head;
-    new_node = malloc(sizeof(MyList));
-    if (!new_node)
-        return NULL;
-    _memset((void *)new_node, 0, sizeof(MyList));
-    new_node->num = num;
-    if (str)
-    {
-        new_node->str = _strdup(str);
-        if (!new_node->str)
-        {
-            free(new_node);
-            return NULL;
-        }
-    }
-    if (node)
-    {
-        while (node->next)
-            node = node->next;
-        node->next = new_node;
-    }
-    else
-        *head = new_node;
-    return new_node;
-}
-
-/**
- * print_my_list_string - prints only the str element of a MyList linked list
- * @head: Pointer to the first node
- *
- * Return: Number of nodes in the list
- */
-size_t print_my_list_string(const MyList *head)
-{
-    size_t i = 0;
-
-    while (head)
-    {
-        _puts(head->str ? head->str : "(nil)");
-        _puts("\n");
-        head = head->next;
-        i++;
-    }
-    return i;
-}
-
-/**
- * delete_my_node_at_index - deletes a node at the given index
- * @head: Address of the pointer to the first node
- * @index: Index of the node to delete
- *
- * Return: 1 on success, 0 on failure
- */
-int delete_my_node_at_index(MyList **head, unsigned int index)
-{
-    MyList *node, *prev_node;
-    unsigned int i = 0;
-
-    if (!head || !*head)
-        return 0;
-
-    if (!index)
-    {
-        node = *head;
-        *head = (*head)->next;
-        free(node->str);
-        free(node);
-        return 1;
-    }
-    node = *head;
-    while (node)
-    {
-        if (i == index)
-        {
-            prev_node->next = node->next;
-            free(node->str);
-            free(node);
+    while (*delim) {
+        if (*delim == c) {
             return 1;
         }
-        i++;
-        prev_node = node;
-        node = node->next;
+        delim++;
     }
     return 0;
 }
 
 /**
- * free_my_list - frees all nodes of a list
- * @head_ptr: Address of the pointer to the head node
+ * my_is_alpha - Check if a character is alphabetic.
+ * @c: The character to check.
  *
- * Return: void
+ * Returns: 1 if it's alphabetic, 0 if not.
  */
-void free_my_list(MyList **head_ptr)
+int my_is_alpha(int c)
 {
-    MyList *node, *next_node, *head;
+    return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) ? 1 : 0;
+}
 
-    if (!head_ptr || !*head_ptr)
-        return;
-    head = *head_ptr;
-    node = head;
-    while (node)
-    {
-        next_node = node->next;
-        free(node->str);
-        free(node);
-        node = next_node;
+/**
+ * my_atoi - Convert a string to an integer.
+ * @s: The string to be converted.
+ *
+ * Returns: 0 if no numbers in the string, the converted number otherwise.
+ */
+int my_atoi(char *s)
+{
+    int i, sign = 1, flag = 0, output = 0;
+
+    for (i = 0; s[i] != '\0' && flag != 2; i++) {
+        if (s[i] == '-')
+            sign *= -1;
+
+        if (s[i] >= '0' && s[i] <= '9') {
+            flag = 1;
+            output *= 10;
+            output += (s[i] - '0');
+        } else if (flag == 1) {
+            flag = 2;
+        }
     }
-    *head_ptr = NULL;
+
+    return (sign == -1) ? -output : output;
 }

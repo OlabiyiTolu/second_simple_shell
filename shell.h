@@ -177,7 +177,7 @@ int my_exit(MyShellInfo *);
 int my_cd(MyShellInfo *);
 int my_help(MyShellInfo *);
 
-/* Function prototypes for MyBuiltIn.c and related functions. */
+/* Function prototypes for builtin1.c and related functions. */
 int my_history(MyShellInfo *);
 int my_alias(MyShellInfo *);
 

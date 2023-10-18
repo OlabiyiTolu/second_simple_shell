@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * my_list_len - determines the length of a linked list
- * @head: Pointer to the first node
+ * my_list_len - Determine the length of a linked list.
+ * @head: Pointer to the first node.
  *
- * Return: Size of the list
+ * Return: Size of the list.
  */
 size_t my_list_len(const MyList *head)
 {
@@ -19,10 +19,10 @@ size_t my_list_len(const MyList *head)
 }
 
 /**
- * my_list_to_strings - returns an array of strings from the list
- * @head: Pointer to the first node
+ * my_list_to_strings - Return an array of strings from the list.
+ * @head: Pointer to the first node.
  *
- * Return: Array of strings
+ * Return: Array of strings.
  */
 char **my_list_to_strings(MyList *head)
 {
@@ -58,10 +58,10 @@ char **my_list_to_strings(MyList *head)
 }
 
 /**
- * print_my_list - prints all elements of a MyList linked list
- * @head: Pointer to the first node
+ * print_my_list - Print all elements of a MyList linked list.
+ * @head: Pointer to the first node.
  *
- * Return: Size of the list
+ * Return: Size of the list.
  */
 size_t print_my_list(const MyList *head)
 {
@@ -80,12 +80,12 @@ size_t print_my_list(const MyList *head)
 }
 
 /**
- * my_node_starts_with - returns a node whose string starts with a prefix
- * @head: Pointer to the list head
- * @prefix: String to match
- * @c: The next character after the prefix to match
+ * my_node_starts_with - Return a node whose string starts with a prefix.
+ * @head: Pointer to the list head.
+ * @prefix: String to match.
+ * @c: The next character after the prefix to match.
  *
- * Return: Matching node or NULL
+ * Return: Matching node or NULL.
  */
 MyList *my_node_starts_with(MyList *head, char *prefix, char c)
 {
@@ -102,11 +102,11 @@ MyList *my_node_starts_with(MyList *head, char *prefix, char c)
 }
 
 /**
- * get_my_node_index - gets the index of a node in a list
- * @head: Pointer to the list head
- * @node: Pointer to the node
+ * get_my_node_index - Get the index of a node in a list.
+ * @head: Pointer to the list head.
+ * @node: Pointer to the node.
  *
- * Return: Index of the node or -1 if not found
+ * Return: Index of the node or -1 if not found.
  */
 ssize_t get_my_node_index(MyList *head, MyList *node)
 {
