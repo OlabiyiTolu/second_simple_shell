@@ -111,7 +111,7 @@ void find_my_command(MyShellInfo *info)
     }
     else
     {
-        if ((interactive(info) || _getenv(info, "PATH=") || info->arguments[0][0] == '/') && is_my_command(info, info->arguments[0]))
+        if ((my_interact(info) || _getenv(info, "PATH=") || info->arguments[0][0] == '/') && is_my_command(info, info->arguments[0]))
         {
             fork_my_command(info);
         }
