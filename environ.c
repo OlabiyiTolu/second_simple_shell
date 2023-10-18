@@ -47,7 +47,7 @@ int my_mset_env(MyShellInfo *info)
         my_puts("Incorrect number of arguments\n");
         return 1;
     }
-    if (my_setenv(info, info->arguments[1], info->arguments[2]))
+    if (my_set_env(info, info->arguments[1], info->arguments[2]))
         return 0;
     return 1;
 }
@@ -68,7 +68,7 @@ int my_munset_env(MyShellInfo *info)
         return 1;
     }
     for (i = 1; i < info->argumentCount; i++)
-        my_unsetenv(info, info->arguments[i]);
+        my_unset_env(info, info->arguments[i]);
 
     return 0;
 }
