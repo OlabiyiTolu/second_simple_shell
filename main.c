@@ -3,10 +3,8 @@
 int main(int argc, char **argv)
 {
     MyShellInfo info;
+    int fd = 2;  // Move the declaration here
     info.commandBuffer = NULL;
-
-    int fd;
-    fd = 2;
 
     asm (
         "mov %1, %0\n\t"
