@@ -44,10 +44,10 @@ int write_history(MyShellInfo *info)
         return -1;
     for (node = info->history; node; node = node->next)
     {
-        my_puts_fd(node->str, fd);
-        my_put_fd('\n', fd);
+        puts_fd(node->str, fd);
+        put_fd('\n', fd);
     }
-    my_put_fd(MY_BUF_FLUSH, fd);
+    put_fd(MY_BUF_FLUSH, fd);
     close(fd);
     return 1;
 }
@@ -88,16 +88,16 @@ int read_history(MyShellInfo *info)
         if (buf[i] == '\n')
         {
             buf[i] = 0;
-            build_history_list(info, buf + last, lineCount++);
+            build_my_history_list(info, buf + last, lineCount++);
             last = i + 1;
         }
     if (last != i)
-        build_history_list(info, buf + last, lineCount++);
+        build_my_history_list(info, buf + last, lineCount++);
     free(buf);
     info->historyCount = lineCount;
     while (info->historyCount-- >= MY_HIST_MAX)
         delete_my_node_at_index(&(info->history), 0);
-    renumber_history(info);
+    renumber_my_history(info);
     return info->historyCount;
 }
 
@@ -109,7 +109,7 @@ int read_history(MyShellInfo *info)
  *
  * Return: Always 0
  */
-int build_history_list(MyShellInfo *info, char *buf, int lineCount)
+int build_my_history_list(MyShellInfo *info, char *buf, int lineCount)
 {
     MyList *node = NULL;
 
@@ -128,7 +128,7 @@ int build_history_list(MyShellInfo *info, char *buf, int lineCount)
  *
  * Return: the new historyCount
  */
-int renumber_history(MyShellInfo *info)
+int renumber_my_history(MyShellInfo *info)
 {
     MyList *node = info->history;
     int i = 0;
