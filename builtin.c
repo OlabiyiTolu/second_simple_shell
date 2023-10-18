@@ -1,94 +1,83 @@
 #include "my_shell.h"
 
 /**
- * my_exit - exits the shell
- * @info: Structure containing potential arguments.
- * Return: exits with a given exit status
- * (0) if info->arguments[0] != "exit"
+ * my_puts - Print an input string to standard output.
+ * @str: The string to be printed.
+ *
+ * Return: Nothing.
  */
-int my_exit(MyShellInfo *info)
+void my_puts(char *str)
 {
-    int exitCheck;
+    int i = 0;
 
-    if (info->arguments[1]) /* If there is an exit argument */
+    if (!str)
+        return;
+    while (str[i] != '\0')
     {
-        exitCheck = my_atoi(info->arguments[1]);
-        if (exitCheck == -1)
-        {
-            info->status = 2;
-            my_puts("Illegal number: ");
-            my_puts(info->arguments[1]);
-            my_putchar('\n');
-            return 1;
-        }
-        info->errorNumber = my_atoi(info->arguments[1]);
-        return -2;
+        my_putchar(str[i]);
+        i++;
     }
-    info->errorNumber = -1;
-    return -2;
 }
 
 /**
- * my_cd - changes the current directory of the process
- * @info: Structure containing potential arguments.
- * Return: Always 0
+ * my_putchar - Write a character to the standard error stream.
+ * @c: The character to print.
+ *
+ * Return: On success, return 1. On error, return -1, and set errno appropriately.
  */
-int my_cd(MyShellInfo *info)
+int my_putchar(char c)
 {
-    char *s, *dir, buffer[1024];
-    int chdirRet;
+    static int i;
+    static char buf[MY_WRITE_BUF_SIZE];
 
-    s = getcwd(buffer, 1024);
-    if (!s)
-        my_puts("TODO: >>getcwd failure emsg here<<\n");
-    if (!info->arguments[1])
+    if (c == MY_BUF_FLUSH || i >= MY_WRITE_BUF_SIZE)
     {
-        dir = _getenv(info, "HOME=");
-        if (!dir)
-            chdirRet = /* TODO: what should this be? */
-                chdir((dir = _getenv(info, "PWD=")) ? dir : "/");
-        else
-            chdirRet = chdir(dir);
+        write(2, buf, i);
+        i = 0;
     }
-    else if (my_strcmp(info->arguments[1], "-") == 0)
-    {
-        if (!_getenv(info, "OLDPWD="))
-        {
-            my_puts(s);
-            my_putchar('\n');
-            return 1;
-        }
-        my_puts(_getenv(info, "OLDPWD=")), my_putchar('\n');
-        chdirRet = /* TODO: what should this be? */
-            chdir((dir = _getenv(info, "OLDPWD=")) ? dir : "/");
-    }
-    else
-        chdirRet = chdir(info->arguments[1]);
-    if (chdirRet == -1)
-    {
-        print_error(info, "can't cd to ");
-        my_puts(info->arguments[1]), my_putchar('\n');
-    }
-    else
-    {
-        _setenv(info, "OLDPWD", _getenv(info, "PWD="));
-        _setenv(info, "PWD", getcwd(buffer, 1024));
-    }
-    return 0;
+    if (c != MY_BUF_FLUSH)
+        buf[i++] = c;
+    return 1;
 }
 
 /**
- * my_help - displays help information for the shell
- * @info: Structure containing potential arguments.
- * Return: Always 0
+ * put_fd - Write a character to the given file descriptor.
+ * @c: The character to print.
+ * @fd: The file descriptor to write to.
+ *
+ * Return: On success, return 1. On error, return -1, and set errno appropriately.
  */
-int my_help(MyShellInfo *info)
+int put_fd(char c, int fd)
 {
-    char **argArray;
+    static int i;
+    static char buf[MY_WRITE_BUF_SIZE];
 
-    argArray = info->arguments;
-    my_puts("Help function not yet implemented.\n");
-    if (0)
-        my_puts(*argArray); /* Temporary workaround */
-    return 0;
+    if (c == MY_BUF_FLUSH || i >= MY_WRITE_BUF_SIZE)
+    {
+        write(fd, buf, i);
+        i = 0;
+    }
+    if (c != MY_BUF_FLUSH)
+        buf[i++] = c;
+    return 1;
+}
+
+/**
+ * puts_fd - Print an input string to the given file descriptor.
+ * @str: The string to be printed.
+ * @fd: The file descriptor to write to.
+ *
+ * Return: The number of characters written.
+ */
+int puts_fd(char *str, int fd)
+{
+    int i = 0;
+
+    if (!str)
+        return 0;
+    while (*str)
+    {
+        i += put_fd(*str++, fd);
+    }
+    return i;
 }

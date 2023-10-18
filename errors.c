@@ -1,10 +1,10 @@
 #include "my_shell.h"
 
 /**
- * my_puts - prints an input string
- * @str: the string to be printed
+ * my_puts - Print an input string to standard output.
+ * @str: The string to be printed.
  *
- * Return: Nothing
+ * Return: Nothing.
  */
 void my_puts(char *str)
 {
@@ -20,11 +20,10 @@ void my_puts(char *str)
 }
 
 /**
- * my_putchar - writes the character c to stderr
- * @c: The character to print
+ * my_putchar - Write a character to the standard error stream.
+ * @c: The character to print.
  *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * Return: On success, return 1. On error, return -1, and set errno appropriately.
  */
 int my_putchar(char c)
 {
@@ -42,12 +41,11 @@ int my_putchar(char c)
 }
 
 /**
- * put_fd - writes the character c to the given fd
- * @c: The character to print
- * @fd: The file descriptor to write to
+ * put_fd - Write a character to the given file descriptor.
+ * @c: The character to print.
+ * @fd: The file descriptor to write to.
  *
- * Return: On success 1.
- * On error, -1 is returned, and errno is set appropriately.
+ * Return: On success, return 1. On error, return -1, and set errno appropriately.
  */
 int put_fd(char c, int fd)
 {
@@ -65,11 +63,11 @@ int put_fd(char c, int fd)
 }
 
 /**
- * puts_fd - prints an input string
- * @str: the string to be printed
- * @fd: the file descriptor to write to
+ * puts_fd - Print an input string to the given file descriptor.
+ * @str: The string to be printed.
+ * @fd: The file descriptor to write to.
  *
- * Return: the number of characters put
+ * Return: The number of characters written.
  */
 int puts_fd(char *str, int fd)
 {

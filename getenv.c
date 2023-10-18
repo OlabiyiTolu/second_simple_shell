@@ -1,10 +1,9 @@
 #include "my_shell.h"
 
 /**
- * get_my_environ - returns the string array copy of our environ
- * @info: Structure containing potential arguments. Used to maintain
- *        constant function prototype.
- * Return: Always 0
+ * get_my_environ - Returns a copy of the environment variables.
+ * @info: Pointer to the struct containing potential arguments.
+ * Return: A copy of the environment variables.
  */
 char **get_my_environ(MyShellInfo *info)
 {
@@ -18,16 +17,15 @@ char **get_my_environ(MyShellInfo *info)
 }
 
 /**
- * my_unset_env - Remove an environment variable
- * @info: Structure containing potential arguments. Used to maintain
- *               constant function prototype.
- * Return: 1 on delete, 0 otherwise
- * @var: the string env var property
+ * my_unset_env - Removes an environment variable.
+ * @info: Pointer to the struct containing potential arguments.
+ * @var: The name of the environment variable to be removed.
+ * Return: 1 on successful removal, 0 otherwise.
  */
 int my_unset_env(MyShellInfo *info, char *var)
 {
     MyList *node = info->environment;
-    size_t i = 0;
+    size_t index = 0;
     char *p;
 
     if (!node || !var)
@@ -38,25 +36,23 @@ int my_unset_env(MyShellInfo *info, char *var)
         p = my_starts_with(node->str, var);
         if (p && *p == '=')
         {
-            info->environmentChanged = delete_my_node_at_index(&(info->environment), i);
-            i = 0;
+            info->environmentChanged = delete_my_node_at_index(&(info->environment), index);
+            index = 0;
             node = info->environment;
             continue;
         }
         node = node->next;
-        i++;
+        index++;
     }
     return info->environmentChanged;
 }
 
 /**
- * my_set_env - Initialize a new environment variable,
- *             or modify an existing one
- * @info: Structure containing potential arguments. Used to maintain
- *          constant function prototype.
- * @var: the string env var property
- * @value: the string env var value
- * Return: Always 0
+ * my_set_env - Initializes or modifies an environment variable.
+ * @info: Pointer to the struct containing potential arguments.
+ * @var: The name of the environment variable.
+ * @value: The value to set for the environment variable.
+ * Return: Always 0.
  */
 int my_set_env(MyShellInfo *info, char *var, char *value)
 {
@@ -70,10 +66,12 @@ int my_set_env(MyShellInfo *info, char *var, char *value)
     buf = (char *)malloc(my_strlen(var) + my_strlen(value) + 2);
     if (!buf)
         return 1;
+
     my_strcpy(buf, var);
     my_strcat(buf, "=");
     my_strcat(buf, value);
     node = info->environment;
+
     while (node)
     {
         p = my_starts_with(node->str, var);
@@ -86,8 +84,10 @@ int my_set_env(MyShellInfo *info, char *var, char *value)
         }
         node = node->next;
     }
+
     add_my_node_end(&(info->environment), buf, 0);
     free(buf);
     info->environmentChanged = 1;
+
     return 0;
 }

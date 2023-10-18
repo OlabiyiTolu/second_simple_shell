@@ -1,8 +1,8 @@
 #include "my_shell.h"
 
 /**
- * clear_my_info - initializes MyShellInfo struct
- * @info: struct address
+ * clear_my_info - Initializes MyShellInfo struct.
+ * @info: Pointer to the struct to be initialized.
  */
 void clear_my_info(MyShellInfo *info)
 {
@@ -13,9 +13,9 @@ void clear_my_info(MyShellInfo *info)
 }
 
 /**
- * set_my_info - initializes MyShellInfo struct
- * @info: struct address
- * @av: argument vector
+ * set_my_info - Initializes MyShellInfo struct.
+ * @info: Pointer to the struct to be initialized.
+ * @av: Argument vector.
  */
 void set_my_info(MyShellInfo *info, char **av)
 {
@@ -44,9 +44,9 @@ void set_my_info(MyShellInfo *info, char **av)
 }
 
 /**
- * free_my_info - frees MyShellInfo struct fields
- * @info: struct address
- * @all: true if freeing all fields
+ * free_my_info - Frees MyShellInfo struct fields.
+ * @info: Pointer to the struct with fields to be freed.
+ * @all: True if freeing all fields.
  */
 void free_my_info(MyShellInfo *info, int all)
 {

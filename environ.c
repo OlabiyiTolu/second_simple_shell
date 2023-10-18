@@ -1,9 +1,10 @@
 #include "my_shell.h"
 
 /**
- * my_env - prints the current environment
+ * my_env - Print the current environment.
  * @info: Structure containing potential arguments.
- * Return: Always 0
+ *
+ * Returns: Always 0.
  */
 int my_env(MyShellInfo *info)
 {
@@ -12,10 +13,11 @@ int my_env(MyShellInfo *info)
 }
 
 /**
- * _getenv - gets the value of an environment variable
+ * _getenv - Get the value of an environment variable.
  * @info: Structure containing potential arguments.
- * @name: environment variable name
- * Return: the value
+ * @name: Environment variable name.
+ *
+ * Returns: The value.
  */
 char *_getenv(MyShellInfo *info, const char *name)
 {
@@ -33,9 +35,10 @@ char *_getenv(MyShellInfo *info, const char *name)
 }
 
 /**
- * my_set_env - Initialize a new environment variable, or modify an existing one
+ * my_set_env - Initialize a new environment variable or modify an existing one.
  * @info: Structure containing potential arguments.
- * Return: Always 0
+ *
+ * Returns: Always 0.
  */
 int my_set_env(MyShellInfo *info)
 {
@@ -50,9 +53,10 @@ int my_set_env(MyShellInfo *info)
 }
 
 /**
- * my_unset_env - Remove an environment variable
+ * my_unset_env - Remove an environment variable.
  * @info: Structure containing potential arguments.
- * Return: Always 0
+ *
+ * Returns: Always 0.
  */
 int my_unset_env(MyShellInfo *info)
 {
@@ -70,9 +74,10 @@ int my_unset_env(MyShellInfo *info)
 }
 
 /**
- * populate_my_env_list - populates the environment linked list
+ * populate_my_env_list - Populates the environment linked list.
  * @info: Structure containing potential arguments.
- * Return: Always 0
+ *
+ * Returns: Always 0.
  */
 int populate_my_env_list(MyShellInfo *info)
 {

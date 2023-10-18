@@ -1,10 +1,9 @@
 #include "my_shell.h"
 
 /**
- * my_history - displays the history list, one command by line, preceded
- *              with line numbers, starting at 0.
- * @info: Structure containing potential arguments.
- * Return: Always 0
+ * my_history - Display the command history with line numbers.
+ * @info: Pointer to the struct containing potential arguments.
+ * Return: Always 0.
  */
 int my_history(MyShellInfo *info)
 {
@@ -13,10 +12,10 @@ int my_history(MyShellInfo *info)
 }
 
 /**
- * unset_my_alias - unsets an alias
- * @info: Structure containing potential arguments.
- * @str: the alias string
- * Return: Always 0 on success, 1 on error
+ * unset_my_alias - Unset an alias.
+ * @info: Pointer to the struct containing potential arguments.
+ * @str: The alias string to unset.
+ * Return: 0 on success, 1 on error.
  */
 int unset_my_alias(MyShellInfo *info, char *str)
 {
@@ -34,10 +33,10 @@ int unset_my_alias(MyShellInfo *info, char *str)
 }
 
 /**
- * set_my_alias - sets an alias to a string
- * @info: Structure containing potential arguments.
- * @str: the alias string
- * Return: Always 0 on success, 1 on error
+ * set_my_alias - Set an alias to a string.
+ * @info: Pointer to the struct containing potential arguments.
+ * @str: The alias string to set.
+ * Return: 0 on success, 1 on error.
  */
 int set_my_alias(MyShellInfo *info, char *str)
 {
@@ -54,9 +53,9 @@ int set_my_alias(MyShellInfo *info, char *str)
 }
 
 /**
- * print_my_alias - prints an alias string
- * @node: the alias node
- * Return: Always 0 on success, 1 on error
+ * print_my_alias - Print an alias string.
+ * @node: The alias node.
+ * Return: 0 on success, 1 on error.
  */
 int print_my_alias(MyList *node)
 {
@@ -76,9 +75,9 @@ int print_my_alias(MyList *node)
 }
 
 /**
- * my_alias - mimics the alias built-in (man alias)
- * @info: Structure containing potential arguments.
- * Return: Always 0
+ * my_alias - Mimic the alias built-in (man alias).
+ * @info: Pointer to the struct containing potential arguments.
+ * Return: Always 0.
  */
 int my_alias(MyShellInfo *info)
 {

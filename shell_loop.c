@@ -1,18 +1,18 @@
 #include "shell.h"
 
 /**
- * shell_loop - main shell loop
- * @info: the parameter & return info struct
- * @av: the argument vector from main()
+ * shell_loop - Main shell loop.
+ * @info: The parameter and return info struct.
+ * @av: The argument vector from main().
  *
- * Return: 0 on success, 1 on error, or error code
+ * Returns: 0 on success, 1 on error, or an error code.
  */
 int shell_loop(info_t *info, char **av)
 {
     ssize_t r = 0;
-    int MyBuiltIn_ret = 0;
+    int built_in_ret = 0;
 
-    while (r != -1 && MyBuiltIn_ret != -2)
+    while (r != -1 && built_in_ret != -2)
     {
         clear_info(info);
         if (interactive(info))
@@ -22,8 +22,8 @@ int shell_loop(info_t *info, char **av)
         if (r != -1)
         {
             set_info(info, av);
-            MyBuiltIn_ret = find_builtin_command(info);
-            if (builtin_ret == -1)
+            built_in_ret = find_builtin_command(info);
+            if (built_in_ret == -1)
                 find_executable_command(info);
         }
         else if (interactive(info))
@@ -34,28 +34,26 @@ int shell_loop(info_t *info, char **av)
     free_info(info, 1);
     if (!interactive(info) && info->status)
         exit(info->status);
-    if (builtin_ret == -2)
+    if (built_in_ret == -2)
     {
         if (info->exit_status == -1)
             exit(info->status);
         exit(info->exit_status);
     }
-    return (builtin_ret);
+    return built_in_ret;
 }
 
 /**
- * find_builtin_command - finds a MyBuiltIn command
- * @info: the parameter & return info struct
+ * find_builtin_command - Find a built-in command.
+ * @info: The parameter and return info struct.
  *
- * Return: -1 if MyBuiltIn not found,
- *         0 if MyBuiltIn executed successfully,
- *         1 if MyBuiltIn found but not successful,
- *         -2 if MyBuiltIn signals exit()
+ * Returns: -1 if built-in not found, 0 if built-in executed successfully,
+ * 1 if built-in found but not successful, -2 if built-in signals exit().
  */
 int find_builtin_command(info_t *info)
 {
     int i, built_in_ret = -1;
-    MyBuiltInTable MyBuiltIntbl[] = {
+    MyBuiltInTable built_in_table[] = {
         {"exit", _exit_shell},
         {"env", _print_environment},
         {"help", _show_help},
@@ -66,12 +64,12 @@ int find_builtin_command(info_t *info)
         {"alias", _manage_alias},
         {NULL, NULL}};
 
-    for (i = 0; MyBuiltIntbl[i].command; i++)
+    for (i = 0; built_in_table[i].command; i++)
     {
-        if (_strcmp(info->argv[0], MyBuiltIntbl[i].command) == 0)
+        if (_strcmp(info->argv[0], built_in_table[i].command) == 0)
         {
             info->line_count++;
-            built_in_ret = MyBuiltIntbl[i].function(info);
+            built_in_ret = built_in_table[i].function(info);
             break;
         }
     }
@@ -79,10 +77,10 @@ int find_builtin_command(info_t *info)
 }
 
 /**
- * find_executable_command - finds an executable command in PATH
- * @info: the parameter & return info struct
+ * find_executable_command - Find an executable command in PATH.
+ * @info: The parameter and return info struct.
  *
- * Return: void
+ * Returns: void.
  */
 void find_executable_command(info_t *info)
 {
@@ -126,10 +124,10 @@ void find_executable_command(info_t *info)
 }
 
 /**
- * execute_command - forks a new process to run the command
- * @info: the parameter & return info struct
+ * execute_command - Forks a new process to run the command.
+ * @info: The parameter and return info struct.
  *
- * Return: void
+ * Returns: void.
  */
 void execute_command(info_t *info)
 {
