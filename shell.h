@@ -180,6 +180,10 @@ int my_help(MyShellInfo *);
 /* Function prototypes for builtin1.c and related functions. */
 int my_history(MyShellInfo *);
 int my_alias(MyShellInfo *);
+int unset_my_alias(MyShellInfo *, char *);
+int set_my_alias(MyShellInfo *, char *)
+int print_my_alias(MyList *);
+
 
 /* Function prototypes for getline.c and related functions. */
 ssize_t my_get_input(MyShellInfo *);
