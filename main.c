@@ -38,6 +38,6 @@ int main(int argc, char **argv)
 
     populate_my_env_list(&info);
     read_my_history(&info);
-    my_shell(&info, argv);
+    my_shell_loop(&info, argv);
     return EXIT_SUCCESS;
 }
