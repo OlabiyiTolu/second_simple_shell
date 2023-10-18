@@ -1,12 +1,12 @@
-#include "my_shell.h"
+#include "shell.h"
 
 /**
- * my_erratoi - converts a string to an integer
+ * my_error_atoi - converts a string to an integer
  * @s: the string to be converted
- * Return: 0 if no numbers in string, converted number otherwise
+ * Return: 0 if no numbers in the string, converted number otherwise
  *       -1 on error
  */
-int my_erratoi(char *s)
+int my_error_atoi(char *s)
 {
     int i = 0;
     unsigned long int result = 0;
@@ -30,10 +30,10 @@ int my_erratoi(char *s)
 
 /**
  * print_my_error - prints an error message
- * @info: the parameter & return info struct
- * @estr: string containing specified error type
- * Return: 0 if no numbers in string, converted number otherwise
- *        -1 on error
+ * @info: the MyShellInfo struct
+ * @estr: string containing the specified error type
+ *
+ * Return: void
  */
 void print_my_error(MyShellInfo *info, char *estr)
 {
@@ -47,7 +47,7 @@ void print_my_error(MyShellInfo *info, char *estr)
 }
 
 /**
- * print_decimal - function prints a decimal (integer) number (base 10)
+ * print_decimal - prints a decimal (integer) number (base 10)
  * @input: the input
  * @fd: the file descriptor to write to
  *
@@ -86,7 +86,7 @@ int print_decimal(int input, int fd)
 }
 
 /**
- * convert_number - converter function, a clone of itoa
+ * convert_number - converter function, similar to itoa
  * @num: number
  * @base: base
  * @flags: argument flags
@@ -101,7 +101,7 @@ char *convert_number(long int num, int base, int flags)
     char *ptr;
     unsigned long n = num;
 
-    if (!(flags & MY_CONVERT_UNSIGNED) &&number< 0)
+    if (!(flags & MY_CONVERT_UNSIGNED) && num < 0)
     {
         n = -num;
         sign = '-';
@@ -122,7 +122,7 @@ char *convert_number(long int num, int base, int flags)
 }
 
 /**
- * remove_comments - function replaces the first instance of '#' with '\0'
+ * remove_comments - replaces the first instance of '#' with '\0'
  * @buf: address of the string to modify
  *
  * Return: Always 0;

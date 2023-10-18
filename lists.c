@@ -1,23 +1,23 @@
 #include "shell.h"
 
 /**
- * add_node_at_start - adds a node to the start of the list
+ * add_my_node - adds a node to the start of the list
  * @head: Address of the pointer to the head node
  * @str: String field of the node
  * @num: Node index used by history
  *
  * Return: Address of the newly added node
  */
-list_t *add_node_at_start(list_t **head, const char *str, int num)
+MyList *add_my_node(MyList **head, const char *str, int num)
 {
     MyList *new_node;
 
     if (!head)
         return NULL;
-    new_node = malloc(sizeof(list_t));
+    new_node = malloc(sizeof(MyList));
     if (!new_node)
         return NULL;
-    _memset((void *)new_node, 0, sizeof(list_t));
+    _memset((void *)new_node, 0, sizeof(MyList));
     new_node->num = num;
     if (str)
     {
@@ -34,14 +34,14 @@ list_t *add_node_at_start(list_t **head, const char *str, int num)
 }
 
 /**
- * add_node_at_end - adds a node to the end of the list
+ * add_my_node_end - adds a node to the end of the list
  * @head: Address of the pointer to the head node
  * @str: String field of the node
  * @num: Node index used by history
  *
  * Return: Address of the newly added node
  */
-list_t *add_node_at_end(list_t **head, const char *str, int num)
+MyList *add_my_node_end(MyList **head, const char *str, int num)
 {
     MyList *new_node, *node;
 
@@ -49,10 +49,10 @@ list_t *add_node_at_end(list_t **head, const char *str, int num)
         return NULL;
 
     node = *head;
-    new_node = malloc(sizeof(list_t));
+    new_node = malloc(sizeof(MyList));
     if (!new_node)
         return NULL;
-    _memset((void *)new_node, 0, sizeof(list_t));
+    _memset((void *)new_node, 0, sizeof(MyList));
     new_node->num = num;
     if (str)
     {
@@ -75,12 +75,12 @@ list_t *add_node_at_end(list_t **head, const char *str, int num)
 }
 
 /**
- * print_list_str - prints only the str element of a MyList linked list
+ * print_my_list_string - prints only the str element of a MyList linked list
  * @head: Pointer to the first node
  *
  * Return: Number of nodes in the list
  */
-size_t print_list_str(const MyList *head)
+size_t print_my_list_string(const MyList *head)
 {
     size_t i = 0;
 
@@ -95,13 +95,13 @@ size_t print_list_str(const MyList *head)
 }
 
 /**
- * delete_node_at_index - deletes a node at the given index
+ * delete_my_node_at_index - deletes a node at the given index
  * @head: Address of the pointer to the first node
  * @index: Index of the node to delete
  *
  * Return: 1 on success, 0 on failure
  */
-int delete_node_at_index(list_t **head, unsigned int index)
+int delete_my_node_at_index(MyList **head, unsigned int index)
 {
     MyList *node, *prev_node;
     unsigned int i = 0;
@@ -135,12 +135,12 @@ int delete_node_at_index(list_t **head, unsigned int index)
 }
 
 /**
- * free_list - frees all nodes of a list
+ * free_my_list - frees all nodes of a list
  * @head_ptr: Address of the pointer to the head node
  *
  * Return: void
  */
-void free_list(list_t **head_ptr)
+void free_my_list(MyList **head_ptr)
 {
     MyList *node, *next_node, *head;
 

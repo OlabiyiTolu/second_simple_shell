@@ -1,14 +1,14 @@
 #include "shell.h"
 
 /**
- * is_chain - Determines if the current character in the buffer is a chain delimiter.
- * @info: The parameter struct.
+ * is_my_chain - Determines if the current character in the buffer is a chain delimiter.
+ * @info: The MyShellInfo struct.
  * @buf: The character buffer.
  * @p: Address of the current position in buf.
  *
  * Return: 1 if it's a chain delimiter, 0 otherwise.
  */
-int is_chain(info_t *info, char *buf, size_t *p)
+int is_my_chain(MyShellInfo *info, char *buf, size_t *p)
 {
     size_t j = *p;
 
@@ -36,8 +36,8 @@ int is_chain(info_t *info, char *buf, size_t *p)
 }
 
 /**
- * check_chain - Checks whether we should continue chaining based on the last status.
- * @info: The parameter struct.
+ * check_my_chain - Checks whether we should continue chaining based on the last status.
+ * @info: The MyShellInfo struct.
  * @buf: The character buffer.
  * @p: Address of the current position in buf.
  * @i: Starting position in buf.
@@ -45,7 +45,7 @@ int is_chain(info_t *info, char *buf, size_t *p)
  *
  * Return: Void.
  */
-void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
+void check_my_chain(MyShellInfo *info, char *buf, size_t *p, size_t i, size_t len)
 {
     size_t j = *p;
 
@@ -70,12 +70,12 @@ void check_chain(info_t *info, char *buf, size_t *p, size_t i, size_t len)
 }
 
 /**
- * replace_alias - Replaces aliases in the tokenized string.
- * @info: The parameter struct.
+ * replace_my_alias - Replaces aliases in the tokenized string.
+ * @info: The MyShellInfo struct.
  *
  * Return: 1 if replaced, 0 otherwise.
  */
-int replace_alias(info_t *info)
+int replace_my_alias(MyShellInfo *info)
 {
     int i;
     MyList *node;
@@ -99,12 +99,12 @@ int replace_alias(info_t *info)
 }
 
 /**
- * replace_vars - Replaces variables in the tokenized string.
- * @info: The parameter struct.
+ * replace_my_vars - Replaces variables in the tokenized string.
+ * @info: The MyShellInfo struct.
  *
  * Return: 1 if replaced, 0 otherwise.
  */
-int replace_vars(info_t *info)
+int replace_my_vars(MyShellInfo *info)
 {
     int i = 0;
     MyList *node;
@@ -116,33 +116,33 @@ int replace_vars(info_t *info)
 
         if (!_strcmp(info->argv[i], "$?"))
         {
-            replace_string(&(info->argv[i]), _strdup(convert_number(info->status, 10, 0)));
+            replace_my_string(&(info->argv[i]), _strdup(convert_number(info->status, 10, 0)));
             continue;
         }
         if (!_strcmp(info->argv[i], "$$"))
         {
-            replace_string(&(info->argv[i]), _strdup(convert_number(getpid(), 10, 0)));
+            replace_my_string(&(info->argv[i]), _strdup(convert_number(getpid(), 10, 0)));
             continue;
         }
         node = node_starts_with(info->env, &info->argv[i][1], '=');
         if (node)
         {
-            replace_string(&(info->argv[i]), _strdup(_strchr(node->str, '=') + 1));
+            replace_my_string(&(info->argv[i]), _strdup(_strchr(node->str, '=') + 1));
             continue;
         }
-        replace_string(&info->argv[i], _strdup(""));
+        replace_my_string(&info->argv[i], _strdup(""));
     }
     return (0);
 }
 
 /**
- * replace_string - Replaces a string.
+ * replace_my_string - Replaces a string.
  * @old: Address of the old string.
  * @new: New string.
  *
  * Return: 1 if replaced, 0 otherwise.
  */
-int replace_string(char **old, char *new)
+int replace_my_string(char **old, char *new)
 {
     free(*old);
     *old = new;

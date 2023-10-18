@@ -1,142 +1,120 @@
 #include "shell.h"
 
 /**
- * get_history_filename - gets the history file
+ * get_my_history_file - gets the history file
  * @info: Structure containing potential arguments.
  *
  * Return: Allocated string containing history file.
  */
-char *get_history_filename(info_t *info)
+char *get_my_history_file(MyShellInfo *info)
 {
-    char *buf, *dir;
-
-    dir = _getenv(info, "HOME=");
+    char *dir = _getenv(info, "HOME=");
     if (!dir)
         return NULL;
-    buf = malloc(sizeof(char) * (_strlen(dir) + _strlen(HIST_FILE) + 2));
-    if (!buf)
+
+    char *filename = malloc(sizeof(char) * (strlen(dir) + strlen(MY_HIST_FILE) + 2));
+    if (!filename)
         return NULL;
-    buf[0] = 0;
-    _strcpy(buf, dir);
-    _strcat(buf, "/");
-    _strcat(buf, MY_HIST_FILE);
-    return buf;
+
+    strcpy(filename, dir);
+    strcat(filename, "/");
+    strcat(filename, MY_HIST_FILE);
+
+    return filename;
 }
 
 /**
- * write_history_to_file - creates a file, or appends to an existing file
+ * write_my_history - writes history to a file
  * @info: Structure containing potential arguments.
  *
  * Return: 1 on success, else -1
  */
-int write_history_to_file(info_t *info)
+int write_my_history(MyShellInfo *info)
 {
-    ssize_t fd;
-    char *filename = get_history_filename(info);
-    MyList *node = NULL;
-
+    char *filename = get_my_history_file(info);
     if (!filename)
         return -1;
 
-    fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 0644);
+    FILE *file = fopen(filename, "w");
     free(filename);
-    if (fd == -1)
+
+    if (!file)
         return -1;
-    for (node = info->history; node; node = node->next)
+
+    MyList *node = info->history;
+    while (node)
     {
-        _putsfd(node->str, fd);
-        _putfd('\n', fd);
+        fprintf(file, "%s\n", node->str);
+        node = node->next;
     }
-    _putfd(BUF_FLUSH, fd);
-    close(fd);
+
+    fclose(file);
     return 1;
 }
 
 /**
- * read_history_from_file - reads history from a file
+ * read_my_history - reads history from a file
  * @info: Structure containing potential arguments.
  *
  * Return: histcount on success, 0 otherwise
  */
-int read_history_from_file(info_t *info)
+int read_my_history(MyShellInfo *info)
 {
-    int i, last = 0, linecount = 0;
-    ssize_t fd, rdlen, fsize = 0;
-    struct stat st;
-    char *buf = NULL, *filename = get_history_filename(info);
-
+    char *filename = get_my_history_file(info);
     if (!filename)
         return 0;
 
-    fd = open(filename, O_RDONLY);
+    FILE *file = fopen(filename, "r");
     free(filename);
-    if (fd == -1)
+
+    if (!file)
         return 0;
-    if (!fstat(fd, &st))
-        fsize = st.st_size;
-    if (fsize < 2)
-        return 0;
-    buf = malloc(sizeof(char) * (fsize + 1));
-    if (!buf)
-        return 0;
-    rdlen = read(fd, buf, fsize);
-    buf[fsize] = 0;
-    if (rdlen <= 0)
-        return free(buf), 0;
-    close(fd);
-    for (i = 0; i < fsize; i++)
-        if (buf[i] == '\n')
-        {
-            buf[i] = 0;
-            build_history_list(info, buf + last, linecount++);
-            last = i + 1;
-        }
-    if (last != i)
-        build_history_list(info, buf + last, linecount++);
-    free(buf);
-    info->histcount = linecount;
-    while (info->histcount-- >= MY_HIST_MAX)
-        delete_node_at_index(&(info->history), 0);
-    renumber_history(info);
-    return info->histcount;
+
+    char line[MY_HIST_MAX];
+    int linecount = 0;
+
+    while (fgets(line, MY_HIST_MAX, file))
+    {
+        line[strlen(line) - 1] = '\0'; // Remove newline
+        build_my_history_list(info, line, linecount);
+        linecount++;
+    }
+
+    fclose(file);
+    return linecount;
 }
 
 /**
- * build_history_list - adds an entry to a history linked list
+ * build_my_history_list - adds an entry to a history linked list
  * @info: Structure containing potential arguments.
  * @buf: Buffer
- * @linecount: History linecount (histcount)
+ * @lineCount: History line count
  *
- * Return: Always 0
+ * Return: 0 on success
  */
-int build_history_list(info_t *info, char *buf, int linecount)
+int build_my_history_list(MyShellInfo *info, char *buf, int lineCount)
 {
-    MyList *node = NULL;
-
-    if (info->history)
-        node = info->history;
-    add_node_end(&node, buf, linecount);
-
-    if (!info->history)
-        info->history = node;
+    add_node_end(&(info->history), buf, lineCount);
     return 0;
 }
 
 /**
- * renumber_history - renumbers the history linked list after changes
+ * renumber_my_history - renumbers the history linked list after changes
  * @info: Structure containing potential arguments.
  *
  * Return: The new histcount
  */
-int renumber_history(info_t *info)
+int renumber_my_history(MyShellInfo *info)
 {
     MyList *node = info->history;
-    int i = 0;
+    int lineCount = 0;
 
     while (node)
     {
-        node->num = i++;
+        node->num = lineCount++;
         node = node->next;
     }
-    return (info->histcount = i);
+
+    info->histcount = lineCount;
+    return lineCount;
 }

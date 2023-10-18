@@ -6,7 +6,7 @@
  *
  * Return: 1 if freed, otherwise 0.
  */
-int bfree(void **ptr)
+int my_bfree(void **ptr)
 {
     if (ptr && *ptr) // Check if the pointer and its value are not NULL
     {

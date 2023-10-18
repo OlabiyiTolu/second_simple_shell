@@ -172,7 +172,7 @@ int print_decimal(int, int);
 char *convert_number(long int, int, int);
 void remove_comments(char *);
 
-/* Function prototypes for MyBuiltIn.c and related functions. */
+/* Function prototypes for builtin.c and related functions. */
 int my_exit(MyShellInfo *);
 int my_cd(MyShellInfo *);
 int my_help(MyShellInfo *);

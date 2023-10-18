@@ -1,18 +1,13 @@
 #include "shell.h"
 
 /**
- * Parsing, syntax analysis, or syntactic analysis is the process of analyzing a string of symbols,
- * either in natural language, computer languages, or data structures.
- */
-
-/**
- * is_executable_command - determines if a file is an executable command
- * @info: the info struct
+ * is_my_command - determines if a file is an executable command
+ * @info: the MyShellInfo struct
  * @path: path to the file
  *
  * Return: 1 if true, 0 otherwise
  */
-int is_executable_command(info_t *info, char *path)
+int is_my_command(MyShellInfo *info, char *path)
 {
     struct stat st;
 
@@ -28,60 +23,60 @@ int is_executable_command(info_t *info, char *path)
 }
 
 /**
- * duplicate_characters - duplicates characters
- * @path_str: the PATH string
+ * duplicate_characters - duplicates characters within a range
+ * @pathstr: the input string
  * @start: starting index
  * @stop: stopping index
  *
  * Return: pointer to a new buffer
  */
-char *duplicate_characters(char *path_str, int start, int stop)
+char *duplicate_characters(char *pathstr, int start, int stop)
 {
-    static char buffer[1024];
+    char buf[1024];
     int i = 0, k = 0;
 
     for (k = 0, i = start; i < stop; i++)
-        if (path_str[i] != ':')
-            buffer[k++] = path_str[i];
-    buffer[k] = 0;
-    return buffer;
+        if (pathstr[i] != ':')
+            buf[k++] = pathstr[i];
+    buf[k] = 0;
+    return strdup(buf);
 }
 
 /**
- * find_command_in_path - finds this command in the PATH string
- * @info: the info struct
- * @path_str: the PATH string
- * @command: the command to find
+ * find_my_path - finds the command path in the PATH string
+ * @info: the MyShellInfo struct
+ * @pathstr: the PATH string
+ * @cmd: the command to find
  *
- * Return: full path of command if found or NULL
+ * Return: full path of the command if found or NULL
  */
-char *find_command_in_path(info_t *info, char *path_str, char *command)
+char *find_my_path(MyShellInfo *info, char *pathstr, char *cmd)
 {
     int i = 0, curr_pos = 0;
     char *path;
 
-    if (!path_str)
+    if (!pathstr)
         return NULL;
-    if ((_strlen(command) > 2) && starts_with(command, "./"))
+    if ((strlen(cmd) > 2) && starts_with(cmd, "./"))
     {
-        if (is_executable_command(info, command))
-            return command;
+        if (is_my_command(info, cmd))
+            return cmd;
     }
     while (1)
     {
-        if (!path_str[i] || path_str[i] == ':')
+        if (!pathstr[i] || pathstr[i] == ':')
         {
-            path = duplicate_characters(path_str, curr_pos, i);
+            path = duplicate_characters(pathstr, curr_pos, i);
             if (!*path)
-                _strcat(path, command);
+                strcat(path, cmd);
             else
             {
-                _strcat(path, "/");
-                _strcat(path, command);
+                strcat(path, "/");
+                strcat(path, cmd);
             }
-            if (is_executable_command(info, path))
+            if (is_my_command(info, path))
                 return path;
-            if (!path_str[i])
+            if (!pathstr[i])
                 break;
             curr_pos = i;
         }
