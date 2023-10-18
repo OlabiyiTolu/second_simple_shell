@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-    MyShellInfo info = MY_SHELL_INFO_INIT; 
+    MyShellInfo info = MY_SHELL_INFO_INIT;
     int fd = 2;
 
     asm (
@@ -14,19 +14,19 @@ int main(int argc, char **argv)
 
     if (argc == 2)
     {
-        fd = open(argv[1], O_RDONLY); 
+        fd = open(argv[1], O_RDONLY);
         if (fd == -1)
         {
-            if (errno == EACCES) 
-                my_exit(&info, 126); 
-            if (errno == ENOENT) 
+            if (errno == EACCES)
+                my_exit(&info);
+            if (errno == ENOENT)
             {
                 my_puts(argv[0]);
                 my_puts(": 0: Can't open ");
                 my_puts(argv[1]);
                 my_putchar('\n');
                 my_putchar(MY_BUF_FLUSH);
-                my_exit(&info, 127);
+                my_exit(&info);
             }
             return EXIT_FAILURE;
         }
