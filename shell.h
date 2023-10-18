@@ -96,9 +96,9 @@ typedef struct MyShellInfo
 /* Initialize a MyShellInfo structure with default values. */
 #define MY_SHELL_INFO_INIT                                                      \
     {                                                                           \
-        NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-            0, 0, 0, 0, 0, NULL, 0                                                 \
+        NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, 0, 0, NULL, NULL, 0           \
     }
+
 
 /**
  *struct MyBuiltIn - contains a MyBuiltIn string and related function
