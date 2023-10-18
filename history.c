@@ -1,31 +1,6 @@
 #include "shell.h"
 
 /**
- * get_my_history_file - gets the history file
- * @info: Structure containing potential arguments.
- *
- * Return: Allocated string containing the history file.
- */
-char *get_my_history_file(MyShellInfo *info)
-{
-    char *dir = _getenv(info, "HOME=");
-    char *filename;
-
-    if (!dir)
-        return NULL;
-
-    filename = malloc(sizeof(char) * (strlen(dir) + strlen(MY_HIST_FILE) + 2));
-    if (!filename)
-        return NULL;
-
-    strcpy(filename, dir);
-    strcat(filename, "/");
-    strcat(filename, MY_HIST_FILE);
-
-    return filename;
-}
-
-/**
  * write_my_history - writes history to a file
  * @info: Structure containing potential arguments.
  *
@@ -33,18 +8,21 @@ char *get_my_history_file(MyShellInfo *info)
  */
 int write_my_history(MyShellInfo *info)
 {
+    FILE *file;
+    MyList *node;
+
     char *filename = get_my_history_file(info);
     if (!filename)
         return -1;
 
-    FILE *file = fopen(filename, "w");
+    file = fopen(filename, "w");
     if (!file)
     {
         free(filename);
         return -1;
     }
 
-    MyList *node = info->history;
+    node = info->history;
     while (node)
     {
         fprintf(file, "%s\n", node->str);
@@ -64,19 +42,20 @@ int write_my_history(MyShellInfo *info)
  */
 int read_my_history(MyShellInfo *info)
 {
+    FILE *file;
+    char line[MY_HIST_MAX];
+    int linecount = 0;
+
     char *filename = get_my_history_file(info);
     if (!filename)
         return 0;
 
-    FILE *file = fopen(filename, "r");
+    file = fopen(filename, "r");
     if (!file)
     {
         free(filename);
         return 0;
     }
-
-    char line[MY_HIST_MAX];
-    int linecount = 0;
 
     while (fgets(line, MY_HIST_MAX, file))
     {
@@ -100,27 +79,9 @@ int read_my_history(MyShellInfo *info)
  */
 int build_my_history_list(MyShellInfo *info, char *buf, int lineCount)
 {
-    add_node_my_end(&(info->history), buf, lineCount);
+    MyList *node;
+
+    node = add_node_my_end(&(info->history), buf, lineCount);
+
     return 0;
-}
-
-/**
- * renumber_my_history - renumbers the history linked list after changes
- * @info: Structure containing potential arguments.
- *
- * Return: The new histcount
- */
-int renumber_my_history(MyShellInfo *info)
-{
-    MyList *node = info->history;
-    int lineCount = 0;
-
-    while (node)
-    {
-        node->num = lineCount++;
-        node = node->next;
-    }
-
-    info->histcount = lineCount;
-    return lineCount;
 }
