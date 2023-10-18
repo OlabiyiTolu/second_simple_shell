@@ -144,7 +144,7 @@ int my_replace_vars(MyShellInfo *info)
  */
 int my_replace_string(char **old, char *new)
 {
-    my_free(*old);
+    my_bfree(*old);
     *old = new;
     return 1;
 }
