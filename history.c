@@ -29,7 +29,7 @@ char *get_history_file(MyShellInfo *info)
  *
  * Return: 1 on success, else -1
  */
-int write_history(MyShellInfo *info)
+int write_my_history(MyShellInfo *info)
 {
     ssize_t fd;
     char *filename = get_history_file(info);
