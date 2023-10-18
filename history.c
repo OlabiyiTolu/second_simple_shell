@@ -14,7 +14,7 @@ char *get_my_history_file(MyShellInfo *info)
     if (!dir)
         return NULL;
 
-    filename = malloc(sizeof(char) * (strlen(dir) + strlen(MY_HIST_FILE) + 2);
+    filename = malloc(sizeof(char) * (strlen(dir) + strlen(MY_HIST_FILE) + 2));
     if (!filename)
         return NULL;
 
@@ -34,12 +34,10 @@ char *get_my_history_file(MyShellInfo *info)
 int write_my_history(MyShellInfo *info)
 {
     char *filename = get_my_history_file(info);
-    FILE *file;
-    
     if (!filename)
         return -1;
 
-    file = fopen(filename, "w");
+    FILE *file = fopen(filename, "w");
     free(filename);
 
     if (!file)
@@ -65,12 +63,10 @@ int write_my_history(MyShellInfo *info)
 int read_my_history(MyShellInfo *info)
 {
     char *filename = get_my_history_file(info);
-    FILE *file;
-    
     if (!filename)
         return 0;
 
-    file = fopen(filename, "r");
+    FILE *file = fopen(filename, "r");
     free(filename);
 
     if (!file)

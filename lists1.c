@@ -40,7 +40,7 @@ char **my_list_to_strings(MyList *head)
 
     for (i = 0; node; node = node->next, i++)
     {
-        char *str = malloc(_strlen(node->str) + 1);
+        char *str = malloc(my_strlen(node->str) + 1);
         if (!str)
         {
             for (j = 0; j < i; j++)
@@ -93,7 +93,7 @@ MyList *my_node_starts_with(MyList *head, char *prefix, char c)
 
     while (head)
     {
-        p = starts_with(head->str, prefix);
+        p = my_starts_withwith(head->str, prefix);
         if (p && ((c == -1) || (*p == c)))
             return head;
         head = head->next;
