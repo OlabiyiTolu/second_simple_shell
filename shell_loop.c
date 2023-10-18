@@ -129,6 +129,12 @@ void find_my_command(MyShellInfo *info)
  *
  * Returns: void.
  */
+/**
+ * execute_my_command - Forks a new process to run the command.
+ * @info: The parameter and return info struct.
+ *
+ * Returns: void.
+ */
 void execute_my_command(MyShellInfo *info)
 {
     pid_t child_pid;
@@ -141,7 +147,7 @@ void execute_my_command(MyShellInfo *info)
     }
     if (child_pid == 0)
     {
-        if (execve(info) == -1)
+        if (execve(info->path, info->arguments, info->my_environ) == -1)
         {
             free_my_info(info, 1);
             if (errno == EACCES)
