@@ -194,8 +194,8 @@ void free_my_info(MyShellInfo *, int);
 /* Function prototypes for environ.c and related functions. */
 char *_getenv(MyShellInfo *, const char *);
 int my_env(MyShellInfo *);
-int my_set_env(MyShellInfo *);
-int my_unset_env(MyShellInfo *);
+int my_mset_env(MyShellInfo *);
+int my_munset_env(MyShellInfo *);
 int populate_my_env_list(MyShellInfo *);
 
 /* Function prototypes for getenv.c and related functions. */

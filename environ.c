@@ -40,7 +40,7 @@ char *_getenv(MyShellInfo *info, const char *name)
  *
  * Returns: Always 0.
  */
-int my_set_env(MyShellInfo *info)
+int my_mset_env(MyShellInfo *info)
 {
     if (info->argumentCount != 3)
     {
@@ -58,7 +58,7 @@ int my_set_env(MyShellInfo *info)
  *
  * Returns: Always 0.
  */
-int my_unset_env(MyShellInfo *info)
+int my_munset_env(MyShellInfo *info)
 {
     int i;
 
