@@ -14,31 +14,31 @@ int shell_loop(MyShellInfo *info, char **av)
 
     while (r != -1 && built_in_ret != -2)
     {
-        clear_info(info);
+        clear_my_info(info);
         if (interactive(info))
             my_puts("$ ");
-        my_putchar(BUF_FLUSH);
-        r = read_input(info);
+        my_putchar(MY_BUF_FLUSH);
+        r = my_get_input(info);
         if (r != -1)
         {
-            set_info(info, av);
-            built_in_ret = find_builtin_command(info);
+            set_my_info(info, av);
+            built_in_ret = find_my_built_in(info);
             if (built_in_ret == -1)
-                find_executable_command(info);
+                find_my_command(info);
         }
         else if (interactive(info))
             my_putchar('\n');
-        free_info(info, 0);
+        free_my_info(info, 0);
     }
-    write_history(info);
+    write_my_history(info);
     free_info(info, 1);
     if (!interactive(info) && info->status)
         exit(info->status);
     if (built_in_ret == -2)
     {
-        if (info->exit_status == -1)
+        if (info->errorNumber == -1)
             exit(info->status);
-        exit(info->exit_status);
+        exit(info->errorNumber);
     }
     return built_in_ret;
 }
@@ -54,14 +54,14 @@ int find_builtin_command(MyShellInfo *info)
 {
     int i, built_in_ret = -1;
     MyBuiltInTable built_in_table[] = {
-        {"exit", _exit_shell},
-        {"env", _print_environment},
-        {"help", _show_help},
-        {"history", _show_history},
-        {"setenv", _set_environment_variable},
-        {"unsetenv", _unset_environment_variable},
-        {"cd", _change_directory},
-        {"alias", _manage_alias},
+        {"exit", my_exit},
+        {"env", my_env},
+        {"help", my_help},
+        {"history", my_history},
+        {"setenv", my_mset_env},
+        {"unsetenv", m_munset_env},
+        {"cd", my_cd},
+        {"alias", my_alias},
         {NULL, NULL}};
 
     for (i = 0; built_in_table[i].command; i++)
