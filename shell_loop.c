@@ -103,22 +103,22 @@ void find_my_command(MyShellInfo *info)
     if (!k)
         return;
 
-    path = find_my_command_in_path(info, _getenv(info, "PATH="), info->arguments[0]);
+    path = find_my_path(info, _getenv(info, "PATH="), info->arguments[0]);
     if (path)
     {
         info->path = path;
-        execute_my_command(info);
+        fork_my_command(info);
     }
     else
     {
-        if ((interactive(info) || _getenv(info, "PATH=") || info->arguments[0][0] == '/') && is_executable_command(info, info->arguments[0]))
+        if ((interactive(info) || _getenv(info, "PATH=") || info->arguments[0][0] == '/') && is_my_command(info, info->arguments[0]))
         {
-            execute_my_command(info);
+            fork_my_command(info);
         }
         else if (*(info->argument) != '\n')
         {
             info->status = 127;
-            print_my_error_message(info, "not found\n");
+            print_my_error(info, "not found\n");
         }
     }
 }
