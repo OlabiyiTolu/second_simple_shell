@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-  MyShellInfo info = { .commandBuffer = malloc(sizeof(char *) * 10) };
+  MyShellInfo info = { .commandBuffer = NULL };
 
   int fd = 2;
 
@@ -33,6 +33,9 @@ int main(int argc, char **argv)
     }
     info.readFd = fd;
   }
+
+  // Allocate memory for the commandBuffer field
+  info.commandBuffer = malloc(sizeof(char *) * 10);
 
   populate_my_env_list(&info);
   read_my_history(&info);
