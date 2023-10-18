@@ -143,9 +143,9 @@ void my_puts(char *);
 int my_putchar(char);
 
 /* Function prototypes for exits.c and related functions. */
-char *my_strncpy(char *, char *, int);
-char *my_strncat(char *, char *, int);
-char *my_strchr(char *, char);
+char *my_strncpy(char *dst, const char *src, int n);
+char *my_strncat(char *dst, const char *src, int n);
+char *my_strchr(const char *s, int c);
 
 /* Function prototypes for tokenizer.c and related functions. */
 char **my_strtow(char *, char *);
