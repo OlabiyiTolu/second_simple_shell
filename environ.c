@@ -4,8 +4,9 @@
  * my_env - Print the current environment.
  * @info: Structure containing potential arguments.
  *
- * Returns: Always 0.
+ * Return: Always 0.
  */
+
 int my_env(MyShellInfo *info)
 {
     print_my_list_string(info->environment);
@@ -17,8 +18,9 @@ int my_env(MyShellInfo *info)
  * @info: Structure containing potential arguments.
  * @name: Environment variable name.
  *
- * Returns: The value.
+ * Return: The value.
  */
+
 char *_getenv(MyShellInfo *info, const char *name)
 {
     MyList *node = info->environment;
@@ -38,8 +40,9 @@ char *_getenv(MyShellInfo *info, const char *name)
  * my_set_env - Initialize a new environment variable or modify an existing one.
  * @info: Structure containing potential arguments.
  *
- * Returns: Always 0.
+ * Return: Always 0.
  */
+
 int my_mset_env(MyShellInfo *info)
 {
     if (info->argumentCount != 3)
@@ -56,8 +59,9 @@ int my_mset_env(MyShellInfo *info)
  * my_unset_env - Remove an environment variable.
  * @info: Structure containing potential arguments.
  *
- * Returns: Always 0.
+ * Return: Always 0.
  */
+
 int my_munset_env(MyShellInfo *info)
 {
     int i;
@@ -77,8 +81,9 @@ int my_munset_env(MyShellInfo *info)
  * populate_my_env_list - Populates the environment linked list.
  * @info: Structure containing potential arguments.
  *
- * Returns: Always 0.
+ * Return: Always 0.
  */
+
 int populate_my_env_list(MyShellInfo *info)
 {
     MyList *node = NULL;

@@ -8,17 +8,21 @@
  *
  * Return: size of list
  */
+ 
 MyList *add_my_node(MyList **head, const char *str, int num)
 {
     MyList *new_head;
 
     if (!head)
         return (NULL);
+
     new_head = malloc(sizeof(MyList));
     if (!new_head)
         return (NULL);
+
     my_memset((void *)new_head, 0, sizeof(MyList));
     new_head->number = num;
+
     if (str)
     {
         new_head->str = my_strdup(str);
@@ -28,8 +32,10 @@ MyList *add_my_node(MyList **head, const char *str, int num)
             return (NULL);
         }
     }
+
     new_head->next = *head;
     *head = new_head;
+
     return (new_head);
 }
 
@@ -41,6 +47,7 @@ MyList *add_my_node(MyList **head, const char *str, int num)
  *
  * Return: size of list
  */
+
 MyList *add_my_node_end(MyList **head, const char *str, int num)
 {
     MyList *new_node, *node;
@@ -52,8 +59,10 @@ MyList *add_my_node_end(MyList **head, const char *str, int num)
     new_node = malloc(sizeof(MyList));
     if (!new_node)
         return (NULL);
+
     my_memset((void *)new_node, 0, sizeof(MyList));
     new_node->number = num;
+
     if (str)
     {
         new_node->str = my_strdup(str);
@@ -63,6 +72,7 @@ MyList *add_my_node_end(MyList **head, const char *str, int num)
             return (NULL);
         }
     }
+
     if (node)
     {
         while (node->next)
@@ -71,6 +81,7 @@ MyList *add_my_node_end(MyList **head, const char *str, int num)
     }
     else
         *head = new_node;
+
     return (new_node);
 }
 
@@ -80,6 +91,7 @@ MyList *add_my_node_end(MyList **head, const char *str, int num)
  *
  * Return: size of list
  */
+
 size_t print_my_list_string(const MyList *h)
 {
     size_t i = 0;
@@ -91,6 +103,7 @@ size_t print_my_list_string(const MyList *h)
         h = h->next;
         i++;
     }
+
     return (i);
 }
 
@@ -101,6 +114,7 @@ size_t print_my_list_string(const MyList *h)
  *
  * Return: 1 on success, 0 on failure
  */
+
 int delete_my_node_at_index(MyList **head, unsigned int index)
 {
     MyList *node, *prev_node;
@@ -117,6 +131,7 @@ int delete_my_node_at_index(MyList **head, unsigned int index)
         free(node);
         return (1);
     }
+
     node = *head;
     while (node)
     {
@@ -131,6 +146,7 @@ int delete_my_node_at_index(MyList **head, unsigned int index)
         prev_node = node;
         node = node->next;
     }
+
     return (0);
 }
 
@@ -140,12 +156,14 @@ int delete_my_node_at_index(MyList **head, unsigned int index)
  *
  * Return: void
  */
+
 void free_my_list(MyList **head_ptr)
 {
     MyList *node, *next_node, *head;
 
     if (!head_ptr || !*head_ptr)
         return;
+
     head = *head_ptr;
     node = head;
     while (node)

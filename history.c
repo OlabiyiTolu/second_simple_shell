@@ -6,6 +6,7 @@
  *
  * Return: allocated string containing the history file
  */
+ 
 char *get_history_file(MyShellInfo *info)
 {
     char *buf, *dir;
@@ -24,11 +25,12 @@ char *get_history_file(MyShellInfo *info)
 }
 
 /**
- * write_history - creates a file, or appends to an existing file
+ * write_my_history - creates a file, or appends to an existing file
  * @info: the parameter struct
  *
  * Return: 1 on success, else -1
  */
+
 int write_my_history(MyShellInfo *info)
 {
     ssize_t fd;
@@ -53,11 +55,12 @@ int write_my_history(MyShellInfo *info)
 }
 
 /**
- * read_history - reads history from a file
+ * read_my_history - reads history from a file
  * @info: the parameter struct
  *
  * Return: histcount on success, 0 otherwise
  */
+
 int read_my_history(MyShellInfo *info)
 {
     int i, last = 0, lineCount = 0;
@@ -102,13 +105,14 @@ int read_my_history(MyShellInfo *info)
 }
 
 /**
- * build_history_list - adds an entry to a history linked list
+ * build_my_history_list - adds an entry to a history linked list
  * @info: Structure containing potential arguments. Used to maintain
  * @buf: buffer
  * @lineCount: the history line count, historyCount
  *
  * Return: Always 0
  */
+
 int build_my_history_list(MyShellInfo *info, char *buf, int lineCount)
 {
     MyList *node = NULL;
@@ -123,11 +127,12 @@ int build_my_history_list(MyShellInfo *info, char *buf, int lineCount)
 }
 
 /**
- * renumber_history - renumbers the history linked list after changes
+ * renumber_my_history - renumbers the history linked list after changes
  * @info: Structure containing potential arguments. Used to maintain
  *
  * Return: the new historyCount
  */
+
 int renumber_my_history(MyShellInfo *info)
 {
     MyList *node = info->history;

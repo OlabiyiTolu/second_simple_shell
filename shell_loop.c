@@ -5,7 +5,7 @@
  * @info: The parameter and return info struct.
  * @av: The argument vector from main().
  *
- * Returns: 0 on success, 1 on error, or an error code.
+ * Return: 0 on success, 1 on error, or an error code.
  */
 int my_shell_loop(MyShellInfo *info, char **av)
 {
@@ -47,7 +47,7 @@ int my_shell_loop(MyShellInfo *info, char **av)
  * find_my_built_in - Find a built-in command.
  * @info: The parameter and return info struct.
  *
- * Returns: -1 if built-in not found, 0 if built-in executed successfully,
+ * Return: -1 if built-in not found, 0 if built-in executed successfully,
  * 1 if built-in found but not successful, -2 if built-in signals exit().
  */
 int find_my_built_in(MyShellInfo *info)
@@ -62,7 +62,8 @@ int find_my_built_in(MyShellInfo *info)
         {"unsetenv", my_munset_env},
         {"cd", my_cd},
         {"alias", my_alias},
-        {NULL, NULL}};
+        {NULL, NULL}
+    };
 
     for (i = 0; built_in_table[i].type; i++)
     {
@@ -80,7 +81,7 @@ int find_my_built_in(MyShellInfo *info)
  * find_my_command - Find an executable command in PATH.
  * @info: The parameter and return info struct.
  *
- * Returns: void.
+ * Return: void.
  */
 void find_my_command(MyShellInfo *info)
 {
@@ -127,13 +128,7 @@ void find_my_command(MyShellInfo *info)
  * fork_my_command - Forks a new process to run the command.
  * @info: The parameter and return info struct.
  *
- * Returns: void.
- */
-/**
- * execute_my_command - Forks a new process to run the command.
- * @info: The parameter and return info struct.
- *
- * Returns: void.
+ * Return: void.
  */
 void fork_my_command(MyShellInfo *info)
 {

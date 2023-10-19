@@ -8,6 +8,7 @@
  *
  * Return: bytes read
  */
+
 ssize_t my_input_buffer(MyShellInfo *info, char **buffer, size_t *length)
 {
     ssize_t read_bytes = 0;
@@ -50,6 +51,7 @@ ssize_t my_input_buffer(MyShellInfo *info, char **buffer, size_t *length)
  *
  * Return: bytes read
  */
+
 ssize_t my_get_input(MyShellInfo *info)
 {
     static char *buffer; /* the ';' command chain buffer */
@@ -97,6 +99,7 @@ ssize_t my_get_input(MyShellInfo *info)
  *
  * Return: read_bytes
  */
+
 ssize_t my_read_buffer(MyShellInfo *info, char *buffer, size_t *i)
 {
     ssize_t read_bytes = 0;
@@ -117,6 +120,7 @@ ssize_t my_read_buffer(MyShellInfo *info, char *buffer, size_t *i)
  *
  * Return: size
  */
+
 int my_get_line(MyShellInfo *info, char **ptr, size_t *length)
 {
     static char buffer[MY_READ_BUF_SIZE];
@@ -162,6 +166,7 @@ int my_get_line(MyShellInfo *info, char **ptr, size_t *length)
  *
  * Return: void
  */
+ 
 void sigint_handler(__attribute__((unused)) int sig_num)
 {
     my_puts("\n");

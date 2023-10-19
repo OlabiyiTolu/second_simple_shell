@@ -5,9 +5,12 @@
  * @dst: The destination string to be copied to.
  * @src: The source string.
  * @n: The number of characters to be copied.
+ *
  * Return: A pointer to the destination string.
  */
-char *my_strncpy(char *dst, const char *src, int n) {
+ 
+char *my_strncpy(char *dst, const char *src, int n)
+{
     char *original_dst = dst;
 
     while (n > 0 && (*dst++ = *src++)) {
@@ -28,9 +31,12 @@ char *my_strncpy(char *dst, const char *src, int n) {
  * @dst: The destination string.
  * @src: The source string.
  * @n: The maximum number of characters to concatenate.
+ *
  * Return: A pointer to the destination string.
  */
-char *my_strncat(char *dst, const char *src, int n) {
+
+char *my_strncat(char *dst, const char *src, int n)
+{
     char *original_dst = dst;
 
     while (*dst != '\0') {
@@ -52,9 +58,12 @@ char *my_strncat(char *dst, const char *src, int n) {
  * my_strchr - Locates a character in a string.
  * @s: The string to be parsed.
  * @c: The character to look for.
+ *
  * Return: A pointer to the first occurrence of the character or NULL if not found.
  */
-char *my_strchr(const char *s, int c) {
+
+char *my_strchr(const char *s, int c)
+{
     while (*s) {
         if (*s == c) {
             return (char *)s;

@@ -1,10 +1,12 @@
 #include "shell.h"
 
 /**
- * get_my_environ - Returns a copy of the environment variables.
+ * get_my_environ - Return a copy of the environment variables.
  * @info: Pointer to the struct containing potential arguments.
+ *
  * Return: A copy of the environment variables.
  */
+
 char **get_my_environ(MyShellInfo *info)
 {
     if (!info->my_environ || info->environmentChanged)
@@ -20,8 +22,10 @@ char **get_my_environ(MyShellInfo *info)
  * my_unset_env - Removes an environment variable.
  * @info: Pointer to the struct containing potential arguments.
  * @var: The name of the environment variable to be removed.
+ *
  * Return: 1 on successful removal, 0 otherwise.
  */
+
 int my_unset_env(MyShellInfo *info, char *var)
 {
     MyList *node = info->environment;
@@ -44,6 +48,7 @@ int my_unset_env(MyShellInfo *info, char *var)
         node = node->next;
         index++;
     }
+
     return info->environmentChanged;
 }
 
@@ -52,8 +57,10 @@ int my_unset_env(MyShellInfo *info, char *var)
  * @info: Pointer to the struct containing potential arguments.
  * @var: The name of the environment variable.
  * @value: The value to set for the environment variable.
+ *
  * Return: Always 0.
  */
+
 int my_set_env(MyShellInfo *info, char *var, char *value)
 {
     char *buf = NULL;

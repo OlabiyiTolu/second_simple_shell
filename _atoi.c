@@ -6,6 +6,7 @@
  *
  * Return: 1 if in interactive mode, 0 otherwise.
  */
+ 
 int my_interact(MyShellInfo *info)
 {
     return (isatty(STDIN_FILENO) && info->readFd <= 2);
@@ -18,6 +19,7 @@ int my_interact(MyShellInfo *info)
  *
  * Return: 1 if it's a delimiter, 0 if not.
  */
+
 int is_delimiter(char c, char *delim)
 {
 	while (*delim)
@@ -37,6 +39,7 @@ int is_delimiter(char c, char *delim)
  *
  * Return: 1 if it's alphabetic, 0 if not.
  */
+ 
 int my_is_alpha(int c)
 {
 	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) ? 1 : 0;
@@ -48,6 +51,7 @@ int my_is_alpha(int c)
  *
  * Return: 0 if no numbers in the string, the converted number otherwise.
  */
+
 int my_atoi(char *s)
 {
 	int i, sign = 1, flag = 0, output = 0;

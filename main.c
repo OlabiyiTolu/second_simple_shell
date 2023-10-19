@@ -1,11 +1,19 @@
 #include "shell.h"
 
+/**
+ * main - Entry point for the shell program.
+ * @argc: Number of command-line arguments.
+ * @argv: Array of command-line argument strings.
+ *
+ * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure.
+ */
 int main(int argc, char **argv)
 {
     MyShellInfo info;
     int fd = 2;
     info.commandBuffer = NULL;
 
+    // Use inline assembly to manipulate the 'fd' variable.
     asm (
         "mov %1, %0\n\t"
         "add $3, %0"

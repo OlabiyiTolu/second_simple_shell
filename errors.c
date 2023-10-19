@@ -6,6 +6,7 @@
  *
  * Return: Nothing.
  */
+ 
 void my_puts(char *str)
 {
     int i = 0;
@@ -25,6 +26,7 @@ void my_puts(char *str)
  *
  * Return: On success, return 1. On error, return -1, and set errno appropriately.
  */
+
 int my_putchar(char c)
 {
     static int i;
@@ -47,6 +49,7 @@ int my_putchar(char c)
  *
  * Return: On success, return 1. On error, return -1, and set errno appropriately.
  */
+
 int put_fd(char c, int fd)
 {
     static int i;
@@ -69,6 +72,7 @@ int put_fd(char c, int fd)
  *
  * Return: The number of characters written.
  */
+
 int puts_fd(char *str, int fd)
 {
     int i = 0;

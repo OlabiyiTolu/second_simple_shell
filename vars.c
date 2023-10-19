@@ -1,12 +1,12 @@
 #include "shell.h"
 
 /**
- * my_is_chain - test if current char in buffer is a chain delimiter
- * @info: the parameter struct
- * @buf: the char buffer
- * @p: address of current position in buf
+ * is_my_chain - Test if the current character in the buffer is a chain delimiter.
+ * @info: The parameter struct.
+ * @buf: The character buffer.
+ * @p: Address of the current position in buf.
  *
- * Return: 1 if chain delimiter, 0 otherwise
+ * Return: 1 if it's a chain delimiter, 0 otherwise.
  */
 int is_my_chain(MyShellInfo *info, char *buf, size_t *p)
 {
@@ -14,19 +14,19 @@ int is_my_chain(MyShellInfo *info, char *buf, size_t *p)
 
     if (buf[j] == '|' && buf[j + 1] == '|')
     {
-        buf[j] = 0;
+        buf[j] = '\0';
         j++;
         info->commandBufferType = MY_CMD_OR;
     }
     else if (buf[j] == '&' && buf[j + 1] == '&')
     {
-        buf[j] = 0;
+        buf[j] = '\0';
         j++;
         info->commandBufferType = MY_CMD_AND;
     }
-    else if (buf[j] == ';') /* found end of this command */
+    else if (buf[j] == ';') /* Found the end of this command */
     {
-        buf[j] = 0; /* replace semicolon with null */
+        buf[j] = '\0'; /* Replace semicolon with null */
         info->commandBufferType = MY_CMD_CHAIN;
     }
     else
@@ -36,14 +36,14 @@ int is_my_chain(MyShellInfo *info, char *buf, size_t *p)
 }
 
 /**
- * my_check_chain - checks if we should continue chaining based on last status
- * @info: the parameter struct
- * @buf: the char buffer
- * @p: address of current position in buf
- * @i: starting position in buf
- * @len: length of buf
+ * check_my_chain - Check if we should continue chaining based on the last status.
+ * @info: The parameter struct.
+ * @buf: The character buffer.
+ * @p: Address of the current position in buf.
+ * @i: Starting position in buf.
+ * @len: Length of buf.
  *
- * Return: Void
+ * Return: Void.
  */
 void check_my_chain(MyShellInfo *info, char *buf, size_t *p, size_t i, size_t len)
 {
@@ -53,7 +53,7 @@ void check_my_chain(MyShellInfo *info, char *buf, size_t *p, size_t i, size_t le
     {
         if (info->status)
         {
-            buf[i] = 0;
+            buf[i] = '\0';
             j = len;
         }
     }
@@ -61,7 +61,7 @@ void check_my_chain(MyShellInfo *info, char *buf, size_t *p, size_t i, size_t le
     {
         if (!info->status)
         {
-            buf[i] = 0;
+            buf[i] = '\0';
             j = len;
         }
     }
@@ -70,10 +70,10 @@ void check_my_chain(MyShellInfo *info, char *buf, size_t *p, size_t i, size_t le
 }
 
 /**
- * my_replace_alias - replaces an alias in the tokenized string
- * @info: the parameter struct
+ * replace_my_alias - Replace an alias in the tokenized string.
+ * @info: The parameter struct.
  *
- * Return: 1 if replaced, 0 otherwise
+ * Return: 1 if replaced, 0 otherwise.
  */
 int replace_my_alias(MyShellInfo *info)
 {
@@ -99,10 +99,10 @@ int replace_my_alias(MyShellInfo *info)
 }
 
 /**
- * my_replace_vars - replaces vars in the tokenized string
- * @info: the parameter struct
+ * replace_my_vars - Replace vars in the tokenized string.
+ * @info: The parameter struct.
  *
- * Return: 1 if replaced, 0 otherwise
+ * Return: 1 if replaced, 0 otherwise.
  */
 int replace_my_vars(MyShellInfo *info)
 {
@@ -136,11 +136,11 @@ int replace_my_vars(MyShellInfo *info)
 }
 
 /**
- * my_replace_string - replaces string
- * @old: address of old string
- * @new: new string
+ * replace_my_string - Replace a string.
+ * @old: Address of the old string.
+ * @new: New string.
  *
- * Return: 1 if replaced, 0 otherwise
+ * Return: 1 if replaced, 0 otherwise.
  */
 int replace_my_string(char **old, char *new)
 {

@@ -4,7 +4,7 @@
  * my_strlen - Get the length of a string.
  * @s: The string to check.
  *
- * Returns: The integer length of the string.
+ * Return: The integer length of the string.
  */
 int my_strlen(char *s)
 {
@@ -24,7 +24,7 @@ int my_strlen(char *s)
  * @s1: The first string.
  * @s2: The second string.
  *
- * Returns: A negative value if s1 < s2, a positive value if s1 > s2, or zero if s1 == s2.
+ * Return: A negative value if s1 < s2, a positive value if s1 > s2, or zero if s1 == s2.
  */
 int my_strcmp(char *s1, char *s2)
 {
@@ -44,7 +44,7 @@ int my_strcmp(char *s1, char *s2)
  * @string: The string to search.
  * @prefix: The prefix to find.
  *
- * Returns: The address of the character after the prefix in the string or NULL.
+ * Return: The address of the character after the prefix in the string or NULL.
  */
 char *my_starts_with(const char *string, const char *prefix)
 {
@@ -62,7 +62,7 @@ char *my_starts_with(const char *string, const char *prefix)
  * @destination: The destination buffer.
  * @source: The source buffer.
  *
- * Returns: A pointer to the destination buffer.
+ * Return: A pointer to the destination buffer.
  */
 char *my_strcat(char *destination, char *source)
 {

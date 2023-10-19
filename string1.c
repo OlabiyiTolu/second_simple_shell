@@ -15,15 +15,15 @@ char *my_strcpy(char *dst, char *src)
     {
         return dst;
     }
-    
+
     while (src[i])
     {
         dst[i] = src[i];
         i++;
     }
-    
+
     dst[i] = '\0';
-    
+
     return dst;
 }
 
@@ -42,29 +42,29 @@ char *my_strdup(const char *str)
     {
         return NULL;
     }
-    
+
     while (*str++)
     {
         length++;
     }
-    
+
     ret = malloc(sizeof(char) * (length + 1));
-    
+
     if (!ret)
     {
         return NULL;
     }
-    
+
     for (length++; length--;)
     {
         ret[length] = *--str;
     }
-    
+
     return ret;
 }
 
 /**
- * my_puts - Prints an input string to the standard output.
+ * _my_puts - Prints an input string to the standard output.
  * @str: The string to be printed.
  *
  * Return: Nothing.
@@ -77,16 +77,16 @@ void _my_puts(char *str)
     {
         return;
     }
-    
+
     while (str[i] != '\0')
     {
-        my_putchar(str[i]);
+        _my_putchar(str[i]);
         i++;
     }
 }
 
 /**
- * my_putchar - Writes a character to the standard output.
+ * _my_putchar - Writes a character to the standard output.
  * @c: The character to print.
  *
  * Return: On success, 1. On error, -1 is returned, and errno is set appropriately.
@@ -101,11 +101,11 @@ int _my_putchar(char c)
         write(1, buf, i);
         i = 0;
     }
-    
+
     if (c != MY_BUF_FLUSH)
     {
         buf[i++] = c;
     }
-    
+
     return 1;
 }

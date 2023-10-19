@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * is_my_command - Determines if a file is an executable command.
+ * is_my_command - Checks if a file is an executable command.
  * @info: The MyShellInfo struct.
  * @path: Path to the file.
  *

@@ -6,6 +6,7 @@
  *
  * Return: Size of the list.
  */
+
 size_t my_list_len(const MyList *head)
 {
     size_t count = 0;
@@ -24,6 +25,7 @@ size_t my_list_len(const MyList *head)
  *
  * Return: Array of strings.
  */
+
 char **my_list_to_strings(MyList *head)
 {
     MyList *node = head;
@@ -63,6 +65,7 @@ char **my_list_to_strings(MyList *head)
  *
  * Return: Size of the list.
  */
+
 size_t print_my_list(const MyList *head)
 {
     size_t count = 0;
@@ -87,6 +90,7 @@ size_t print_my_list(const MyList *head)
  *
  * Return: Matching node or NULL.
  */
+
 MyList *my_node_starts_with(MyList *head, char *prefix, char c)
 {
     char *p = NULL;
@@ -108,6 +112,7 @@ MyList *my_node_starts_with(MyList *head, char *prefix, char c)
  *
  * Return: Index of the node or -1 if not found.
  */
+ 
 ssize_t get_my_node_index(MyList *head, MyList *node)
 {
     size_t index = 0;

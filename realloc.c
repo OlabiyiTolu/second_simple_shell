@@ -6,7 +6,7 @@
  * @b: The byte to fill *s with.
  * @n: The amount of bytes to be filled.
  *
- * Returns: A pointer to the memory area s.
+ * Return: A pointer to the memory area s.
  */
 char *my_memset(char *s, char b, unsigned int n)
 {
@@ -42,7 +42,7 @@ void my_ffree(char **arr)
  * @old_size: Byte size of the previous block.
  * @new_size: Byte size of the new block.
  *
- * Returns: Pointer to the reallocated block or NULL on failure.
+ * Return: Pointer to the reallocated block or NULL on failure.
  */
 void *my_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {

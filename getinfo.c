@@ -4,6 +4,7 @@
  * clear_my_info - Initializes MyShellInfo struct.
  * @info: Pointer to the struct to be initialized.
  */
+
 void clear_my_info(MyShellInfo *info)
 {
     info->argument = NULL;
@@ -17,6 +18,7 @@ void clear_my_info(MyShellInfo *info)
  * @info: Pointer to the struct to be initialized.
  * @av: Argument vector.
  */
+
 void set_my_info(MyShellInfo *info, char **av)
 {
     int i = 0;
@@ -48,6 +50,7 @@ void set_my_info(MyShellInfo *info, char **av)
  * @info: Pointer to the struct with fields to be freed.
  * @all: True if freeing all fields.
  */
+ 
 void free_my_info(MyShellInfo *info, int all)
 {
     my_ffree(info->arguments);

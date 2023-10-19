@@ -3,8 +3,10 @@
 /**
  * my_history - Display the command history with line numbers.
  * @info: Pointer to the struct containing potential arguments.
+ *
  * Return: Always 0.
  */
+ 
 int my_history(MyShellInfo *info)
 {
     print_my_list_string(info->history);
@@ -15,8 +17,10 @@ int my_history(MyShellInfo *info)
  * unset_my_alias - Unset an alias.
  * @info: Pointer to the struct containing potential arguments.
  * @str: The alias string to unset.
+ *
  * Return: 0 on success, 1 on error.
  */
+
 int unset_my_alias(MyShellInfo *info, char *str)
 {
     char *p, c;
@@ -36,8 +40,10 @@ int unset_my_alias(MyShellInfo *info, char *str)
  * set_my_alias - Set an alias to a string.
  * @info: Pointer to the struct containing potential arguments.
  * @str: The alias string to set.
+ *
  * Return: 0 on success, 1 on error.
  */
+
 int set_my_alias(MyShellInfo *info, char *str)
 {
     char *p;
@@ -55,8 +61,10 @@ int set_my_alias(MyShellInfo *info, char *str)
 /**
  * print_my_alias - Print an alias string.
  * @node: The alias node.
+ *
  * Return: 0 on success, 1 on error.
  */
+
 int print_my_alias(MyList *node)
 {
     char *p = NULL, *a = NULL;
@@ -77,8 +85,10 @@ int print_my_alias(MyList *node)
 /**
  * my_alias - Mimic the alias built-in (man alias).
  * @info: Pointer to the struct containing potential arguments.
+ *
  * Return: Always 0.
  */
+
 int my_alias(MyShellInfo *info)
 {
     int i = 0;

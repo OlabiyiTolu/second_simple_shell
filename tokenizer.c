@@ -1,17 +1,18 @@
 #include "shell.h"
 
 /**
- * my_strtow - splits a string into words. Repeated delimiters are ignored.
- * @input_str: the input string
- * @delimiters: the delimiter string
- * Return: a pointer to an array of strings, or NULL on failure
+ * my_strtow - Splits a string into words using custom delimiters.
+ * @input_str: The input string.
+ * @delimiters: The delimiter string.
+ *
+ * Return: A pointer to an array of strings, or NULL on failure.
  */
 char **my_strtow(char *input_str, char *delimiters)
 {
     int i, j, k, m, num_words = 0;
     char **words;
 
-    if (input_str == NULL || input_str[0] == 0)
+    if (input_str == NULL || input_str[0] == '\0')
         return NULL;
     if (!delimiters)
         delimiters = " ";
@@ -47,24 +48,25 @@ char **my_strtow(char *input_str, char *delimiters)
         }
         for (m = 0; m < k; m++)
             words[j][m] = input_str[i++];
-        words[j][m] = 0;
+        words[j][m] = '\0';
     }
     words[j] = NULL;
     return words;
 }
 
 /**
- * my_strtow2 - splits a string into words.
- * @input_str: the input string
- * @delimiter: the delimiter character
- * Return: a pointer to an array of strings, or NULL on failure
+ * my_strtow2 - Splits a string into words using a specific delimiter character.
+ * @input_str: The input string.
+ * @delimiter: The delimiter character.
+ *
+ * Return: A pointer to an array of strings, or NULL on failure.
  */
 char **my_strtow2(char *input_str, char delimiter)
 {
     int i, j, k, m, num_words = 0;
     char **words;
 
-    if (input_str == NULL || input_str[0] == 0)
+    if (input_str == NULL || input_str[0] == '\0')
         return NULL;
 
     for (i = 0; input_str[i] != '\0'; i++)
@@ -102,7 +104,7 @@ char **my_strtow2(char *input_str, char delimiter)
         }
         for (m = 0; m < k; m++)
             words[j][m] = input_str[i++];
-        words[j][m] = 0;
+        words[j][m] = '\0';
     }
     words[j] = NULL;
     return words;
