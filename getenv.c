@@ -1,100 +1,93 @@
 #include "shell.h"
 
 /**
- * get_my_environ - Return a copy of the environment variables.
- * @info: Pointer to the struct containing potential arguments.
- *
- * Return: A copy of the environment variables.
+ * get_environ - returns the string array copy of our environ
+ * @info: Structure containing potential arguments. Used to maintain
+ *          constant function prototype.
+ * Return: Always 0
  */
-
-char **get_my_environ(MyShellInfo *info)
+char **get_environ(info_t *info)
 {
-    if (!info->my_environ || info->environmentChanged)
-    {
-        info->my_environ = my_list_to_strings(info->environment);
-        info->environmentChanged = 0;
-    }
+	if (!info->environ || info->env_changed)
+	{
+		info->environ = list_to_strings(info->env);
+		info->env_changed = 0;
+	}
 
-    return info->my_environ;
+	return (info->environ);
 }
 
 /**
- * my_unset_env - Removes an environment variable.
- * @info: Pointer to the struct containing potential arguments.
- * @var: The name of the environment variable to be removed.
- *
- * Return: 1 on successful removal, 0 otherwise.
+ * _unsetenv - Remove an environment variable
+ * @info: Structure containing potential arguments. Used to maintain
+ *        constant function prototype.
+ *  Return: 1 on delete, 0 otherwise
+ * @var: the string env var property
  */
-
-int my_unset_env(MyShellInfo *info, char *var)
+int _unsetenv(info_t *info, char *var)
 {
-    MyList *node = info->environment;
-    size_t index = 0;
-    char *p;
+	list_t *node = info->env;
+	size_t i = 0;
+	char *p;
 
-    if (!node || !var)
-        return 0;
+	if (!node || !var)
+		return (0);
 
-    while (node)
-    {
-        p = my_starts_with(node->str, var);
-        if (p && *p == '=')
-        {
-            info->environmentChanged = delete_my_node_at_index(&(info->environment), index);
-            index = 0;
-            node = info->environment;
-            continue;
-        }
-        node = node->next;
-        index++;
-    }
-
-    return info->environmentChanged;
+	while (node)
+	{
+		p = starts_with(node->str, var);
+		if (p && *p == '=')
+		{
+			info->env_changed = delete_node_at_index(&(info->env), i);
+			i = 0;
+			node = info->env;
+			continue;
+		}
+		node = node->next;
+		i++;
+	}
+	return (info->env_changed);
 }
 
 /**
- * my_set_env - Initializes or modifies an environment variable.
- * @info: Pointer to the struct containing potential arguments.
- * @var: The name of the environment variable.
- * @value: The value to set for the environment variable.
- *
- * Return: Always 0.
+ * _setenv - Initialize a new environment variable,
+ *             or modify an existing one
+ * @info: Structure containing potential arguments. Used to maintain
+ *        constant function prototype.
+ * @var: the string env var property
+ * @value: the string env var value
+ *  Return: Always 0
  */
-
-int my_set_env(MyShellInfo *info, char *var, char *value)
+int _setenv(info_t *info, char *var, char *value)
 {
-    char *buf = NULL;
-    MyList *node;
-    char *p;
+	char *buf = NULL;
+	list_t *node;
+	char *p;
 
-    if (!var || !value)
-        return 0;
+	if (!var || !value)
+		return (0);
 
-    buf = (char *)malloc(my_strlen(var) + my_strlen(value) + 2);
-    if (!buf)
-        return 1;
-
-    my_strcpy(buf, var);
-    my_strcat(buf, "=");
-    my_strcat(buf, value);
-    node = info->environment;
-
-    while (node)
-    {
-        p = my_starts_with(node->str, var);
-        if (p && *p == '=')
-        {
-            free(node->str);
-            node->str = buf;
-            info->environmentChanged = 1;
-            return 0;
-        }
-        node = node->next;
-    }
-
-    add_my_node_end(&(info->environment), buf, 0);
-    free(buf);
-    info->environmentChanged = 1;
-
-    return 0;
+	buf = malloc(_strlen(var) + _strlen(value) + 2);
+	if (!buf)
+		return (1);
+	_strcpy(buf, var);
+	_strcat(buf, "=");
+	_strcat(buf, value);
+	node = info->env;
+	while (node)
+	{
+		p = starts_with(node->str, var);
+		if (p && *p == '=')
+		{
+			free(node->str);
+			node->str = buf;
+			info->env_changed = 1;
+			return (0);
+		}
+		node = node->next;
+	}
+	add_node_end(&(info->env), buf, 0);
+	free(buf);
+	info->env_changed = 1;
+	return (0);
 }
